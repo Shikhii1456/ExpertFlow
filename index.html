@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpertFlow | Structured Experience Handover &amp; Cross-Shift Competency — IEW 2027</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+
+    <!-- Top Competition Ribbon / Pitch Demo Bar -->
+    <div class="pitch-banner">
+        <div class="pitch-banner-left">
+            <span class="badge-iew"><i class="fas fa-award"></i> IEW 2027 HACKATHON</span>
+            <span class="banner-title"><strong>ExpertFlow:</strong> Operational Continuity &amp; Cross-Shift Competency</span>
+        </div>
+        <div class="pitch-banner-center">
+            <div class="shift-live-indicator">
+                <span class="shift-tag shift-a-tag"><i class="fas fa-sun"></i> Shift A (Outgoing)</span>
+                <i class="fas fa-arrow-right-long text-accent"></i>
+                <span class="shift-tag shift-b-tag active-shift"><i class="fas fa-cloud-sun"></i> Shift B (Incoming Lead)</span>
+                <span class="pulse-indicator"></span>
+            </div>
+        </div>
+        <div class="pitch-banner-right">
+            <button class="btn-demo-mode" id="btnQuickDemo">
+                <i class="fas fa-play-circle"></i> 5-Min Solution Demo
+            </button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="logo-text">
+                        <span class="brand-name">Expert<span class="brand-x">Flow</span></span>
+                        <span class="brand-sub">Operational Intelligence</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-section-title">CORE PILLARS</div>
+            <div class="nav-links">
+                <a class="nav-item active" data-section="overview">
+                    <i class="fas fa-compass"></i>
+                    <span>Executive Overview</span>
+                </a>
+                <a class="nav-item" data-section="handover">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>1. Structured Handover</span>
+                    <span class="nav-badge active-badge">5-Section</span>
+                </a>
+                <a class="nav-item" data-section="graph">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>2. Experience Graph</span>
+                    <span class="nav-badge">Why Engine</span>
+                </a>
+                <a class="nav-item" data-section="scenarios">
+                    <i class="fas fa-gamepad"></i>
+                    <span>3. Scenario Engine</span>
+                    <span class="nav-badge">10× Rare Events</span>
+                </a>
+                <a class="nav-item" data-section="coach">
+                    <i class="fas fa-robot"></i>
+                    <span>4. AI Experience Coach</span>
+                </a>
+                <a class="nav-item" data-section="cross-shift">
+                    <i class="fas fa-chart-radar"></i>
+                    <span>5. Cross-Shift Competency</span>
+                    <span class="nav-badge diff-badge">Shifts A vs B vs C</span>
+                </a>
+                <a class="nav-item" data-section="mentor-brief">
+                    <i class="fas fa-file-signature"></i>
+                    <span>6. 1-Page Mentor Brief</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">SB</div>
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Shift B Control Lead</span>
+                        <span class="user-level" id="userLevel">IOCL Paradip CDU / FCC Unit</span>
+                    </div>
+                </div>
+                <div class="system-status">
+                    <span class="status-dot"></span> <span>Zero "Unit Normal" Syndrome • Audit Active</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- ===== 0. EXECUTIVE OVERVIEW ===== -->
+            <section class="content-section active" id="section-overview">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>The Shift Handover &amp; Competency Gap</h1>
+                        <p class="section-sub">Eliminating the dangerous "Unit Normal" logbook syndrome and unifying operational discipline across all shifts</p>
+                    </div>
+                    <div class="header-actions">
+                        <span class="kpi-pill success"><i class="fas fa-shield-halved"></i> 100% Structured Verification</span>
+                        <span class="kpi-pill"><i class="fas fa-arrows-split-up-and-left"></i> Multi-Shift Parity</span>
+                    </div>
+                </div>
+
+                <!-- Three Core Pillars Banner Cards -->
+                <div class="three-pillars-grid">
+                    <div class="pillar-card card" onclick="navigateToSection('handover')">
+                        <div class="pillar-number">01</div>
+                        <div class="pillar-icon stat-accent"><i class="fas fa-clipboard-list"></i></div>
+                        <h3>Structured Experience Handover</h3>
+                        <p>Eliminates vague "unit normal" notes by enforcing a mandatory 5-section model: <strong>Normal State, Deviations, Observations, Actions Taken, &amp; Watch-Points</strong>.</p>
+                        <span class="pillar-cta">Open Handover Module <i class="fas fa-arrow-right"></i></span>
+                    </div>
+
+                    <div class="pillar-card card" onclick="navigateToSection('graph')">
+                        <div class="pillar-number">02</div>
+                        <div class="pillar-icon stat-purple"><i class="fas fa-network-wired"></i></div>
+                        <h3>Context &amp; Reasoning via Experience Graph</h3>
+                        <p>Standard CMMS logs record <em>what</em> was done, but never <em>why</em>. The graph connects assets, signals, competing hypotheses, discriminating checks, and verified lessons.</p>
+                        <span class="pillar-cta">Explore Reasoning Graph <i class="fas fa-arrow-right"></i></span>
+                    </div>
+
+                    <div class="pillar-card card" onclick="navigateToSection('cross-shift')">
+                        <div class="pillar-number">03</div>
+                        <div class="pillar-icon stat-green"><i class="fas fa-users-gear"></i></div>
+                        <h3>Standardized Competency Across Shifts</h3>
+                        <p>Closes the performance gap between Shift A, B, and C using <strong>10× Scenario Drills</strong>, Socratic AI coaching, and <strong>1-Page Mentor Briefs</strong> targeting specific reasoning errors.</p>
+                        <span class="pillar-cta">View Cross-Shift Radar <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Key Metrics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-accent">
+                            <i class="fas fa-file-circle-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">0%</span>
+                            <span class="stat-label">"Unit Normal" Omissions</span>
+                            <span class="stat-meta">Vague entries replaced by 5-section proof</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-purple">
+                            <i class="fas fa-ear-listen"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">94.8%</span>
+                            <span class="stat-label">Weak Signal Capture Rate</span>
+                            <span class="stat-meta">Acoustic, thermal &amp; flutter cues recorded</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-green">
+                            <i class="fas fa-scale-balanced"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">+84%</span>
+                            <span class="stat-label">Inter-Shift Consistency</span>
+                            <span class="stat-meta">Shift A / B / C decision parity index</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-orange">
+                            <i class="fas fa-bolt-lightning"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">15 Min</span>
+                            <span class="stat-label">Targeted Mentoring Brief</span>
+                            <span class="stat-meta">Pre-diagnosed shift coaching sessions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two-Column Problem vs Solution Comparison -->
+                <div class="two-col-grid">
+                    <div class="card problem-card">
+                        <div class="card-title-row">
+                            <h3><i class="fas fa-triangle-exclamation text-danger"></i> The Industrial Problem: Why Handovers Fail</h3>
+                            <span class="tag-danger">Current Industry Reality</span>
+                        </div>
+                        <div class="comparison-list">
+                            <div class="comparison-item bad">
+                                <i class="fas fa-xmark"></i>
+                                <div>
+                                    <strong>"Unit Normal" Logbook Trap:</strong>
+                                    <span>Outgoing operators write 3 words, omitting that they trimmed cooling bypass by 5% or heard a slight gravel crackle.</span>
+                                </div>
+                            </div>
+                            <div class="comparison-item bad">
+                                <i class="fas fa-xmark"></i>
+                                <div>
+                                    <strong>Lost Reasoning ("What" without "Why"):</strong>
+                                    <span>Incoming shift sees a throttled valve or disabled alarm but has no idea *why* the previous shift took that action.</span>
+                                </div>
+                            </div>
+                            <div class="comparison-item bad">
+                                <i class="fas fa-xmark"></i>
+                                <div>
+                                    <strong>Uneven Shadowing &amp; Shift Disparity:</strong>
+                                    <span>Shift A has a 30-year guru; Shift C consists of junior recruits. Plant trips occur disproportionately during Night Shift transitions.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card solution-card">
+                        <div class="card-title-row">
+                            <h3><i class="fas fa-circle-check text-success"></i> The ExpertFlow Solution: 3 Integrated Enablers</h3>
+                            <span class="tag-accent">Engineered Workflow</span>
+                        </div>
+                        <div class="comparison-list">
+                            <div class="comparison-item good">
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Mandatory 5-Section Handover Engine:</strong>
+                                    <span>Forces explicit documentation of Normal baseline, Deviations, Observations, Actions Taken, and active Watch-Points.</span>
+                                </div>
+                            </div>
+                            <div class="comparison-item good">
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Experience Graph Reasoning Trace:</strong>
+                                    <span>Incoming shifts click any logged action to inspect the underlying signals, competing hypotheses, and validated lessons.</span>
+                                </div>
+                            </div>
+                            <div class="comparison-item good">
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Cross-Shift Standardized Competency:</strong>
+                                    <span>Scenario simulation drills + Socratic AI coaching + automated 1-page mentor briefs guarantee identical decision quality.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 1. STRUCTURED EXPERIENCE HANDOVER ===== -->
+            <section class="content-section" id="section-handover">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>1. Structured Experience Handover Engine</h1>
+                        <p class="section-sub">Replacing ad-hoc verbal notes and "unit normal" omissions with the standardized 5-section operational model</p>
+                    </div>
+                    <div class="handover-controls">
+                        <div class="mode-switch-pills">
+                            <button class="pill-btn active" id="btnModeOperatorConsole"><i class="fas fa-pen-to-square"></i> Shift A Operator Console (Create Log)</button>
+                            <button class="pill-btn" id="btnModeReviewCanvas"><i class="fas fa-clipboard-check"></i> Shift B Review &amp; Sign-off</button>
+                        </div>
+                        <button class="btn-secondary" id="btnToggleLogMode"><i class="fas fa-code-compare"></i> Vague Log Trap Demonstration</button>
+                    </div>
+                </div>
+
+                <!-- Shift A Operator Input Console (Active Form) -->
+                <div class="card operator-console-card" id="operatorConsoleCard">
+                    <div class="console-header">
+                        <div class="console-title-wrap">
+                            <span class="role-badge"><i class="fas fa-user-gear"></i> SHIFT A LEAD OPERATOR WORKSPACE</span>
+                            <h2>Create &amp; Sign Outgoing Handover Log (Shift A: 06:00 – 14:00)</h2>
+                            <p class="console-sub">As the outgoing operator, your legal duty under <strong>OISD-GDN-166 &amp; OSHA PSM</strong> is to establish an uncompromised operational record. All 5 sections below are <strong>mandatory and cannot be avoided</strong>.</p>
+                        </div>
+                        <div class="console-quick-actions">
+                            <button class="btn-chip" id="btnFillVagueSample" title="Test how the AI blocks lazy entries"><i class="fas fa-bug text-danger"></i> Test 'Unit Normal' Rejection</button>
+                            <button class="btn-chip active" id="btnFillVerifiedSample"><i class="fas fa-magic text-accent"></i> Load Operator Draft</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Quality Audit Live Status Banner -->
+                    <div class="audit-live-banner" id="auditLiveBanner">
+                        <div class="audit-banner-icon"><i class="fas fa-shield-halved text-accent"></i></div>
+                        <div class="audit-banner-text">
+                            <strong id="auditBannerTitle">AI Handover Integrity Auditor: Ready for Operator Input</strong>
+                            <span id="auditBannerSub">Real-time check active against OISD-166: Checks for "unit normal" syndrome, parameter completeness, and unresolved watch-points.</span>
+                        </div>
+                        <span class="audit-score-pill" id="auditScorePill">Compliance: 100%</span>
+                    </div>
+
+                    <!-- Unit Selection Dropdown -->
+                    <div class="console-unit-select-row">
+                        <label><i class="fas fa-industry text-accent"></i> <strong>Target Plant Asset / Process Unit:</strong></label>
+                        <select id="operatorTargetAssetSelect" class="select-dropdown">
+                            <option value="pump">P-101 Heavy Naphtha Centrifugal Booster Pump (Crude Distillation Unit)</option>
+                            <option value="column">C-201 Atmospheric Distillation Column (42 Sieve Trays)</option>
+                            <option value="compressor">K-301 Two-Stage Centrifugal Wet Gas Compressor (FCC Unit)</option>
+                            <option value="pipeline">PL-400 24-Inch Interstate Crude Supply Pipeline (500 km)</option>
+                        </select>
+                    </div>
+
+                    <!-- The 5 Mandatory Input Sections -->
+                    <div class="operator-form-sections">
+                        <!-- MANDATORY SECTION 1 -->
+                        <div class="operator-input-block required-block" id="blockSec1">
+                            <div class="input-block-header">
+                                <span class="req-badge"><i class="fas fa-asterisk"></i> MANDATORY SECTION 1</span>
+                                <h4><i class="fas fa-gauge text-accent"></i> Normal State Baseline Operating Envelope</h4>
+                                <span class="input-instruction">Establish verified numerical parameters &amp; unit throughput. Cannot be blank.</span>
+                            </div>
+                            <textarea id="inputNormalState" class="operator-textarea" rows="3" placeholder="Example: Feed Throughput: 850 m³/h; Discharge Pressure: 14.2 kg/cm²; Power: 315 kW, 52A balanced; Lube Oil Pressure: 2.1 bar @ 44°C..."></textarea>
+                            <div class="field-feedback" id="feedbackNormalState"></div>
+                        </div>
+
+                        <!-- MANDATORY SECTION 2 -->
+                        <div class="operator-input-block required-block" id="blockSec2">
+                            <div class="input-block-header">
+                                <span class="req-badge warning-req"><i class="fas fa-asterisk"></i> MANDATORY SECTION 2</span>
+                                <h4><i class="fas fa-arrows-split-up-and-left text-warning"></i> Deviations, Overrides &amp; Temporary Setpoint Tweaks</h4>
+                                <span class="input-instruction">Document every manual trim, bypass valve %, or setpoint offset. If zero, write 'Zero active overrides'.</span>
+                            </div>
+                            <textarea id="inputDeviations" class="operator-textarea" rows="3" placeholder="Example: Manual cooling bypass trimmed 5% at 11:30 to counteract pre-heat surge; Suction strainer DP elevated from 0.15 to 0.42 bar; Drum level at 48%..."></textarea>
+                            <div class="field-feedback" id="feedbackDeviations"></div>
+                        </div>
+
+                        <!-- MANDATORY SECTION 3 -->
+                        <div class="operator-input-block required-block" id="blockSec3">
+                            <div class="input-block-header">
+                                <span class="req-badge purple-req"><i class="fas fa-asterisk"></i> MANDATORY SECTION 3</span>
+                                <h4><i class="fas fa-eye text-purple"></i> Subtle Observations &amp; Weak Sensory Signals</h4>
+                                <span class="input-instruction">Critical safety field: Record acoustic signatures (crackle/whine), vibration creep, visual foaming, or odors.</span>
+                            </div>
+                            <textarea id="inputObservations" class="operator-textarea" rows="3" placeholder="Example: Intermittent gravel-like crackle heard at suction nozzle at 13:10; Casing vibration crept from 2.1 to 4.6 mm/s; Bearing temp normal at 52°C..."></textarea>
+                            <div class="field-feedback" id="feedbackObservations"></div>
+                        </div>
+
+                        <!-- MANDATORY SECTION 4 -->
+                        <div class="operator-input-block required-block" id="blockSec4">
+                            <div class="input-block-header">
+                                <span class="req-badge success-req"><i class="fas fa-asterisk"></i> MANDATORY SECTION 4</span>
+                                <h4><i class="fas fa-wrench text-success"></i> Actions Taken &amp; Diagnostic Rationale</h4>
+                                <span class="input-instruction">Explain WHAT you adjusted and the engineering WHY behind it. Feeds the Experience Graph.</span>
+                            </div>
+                            <textarea id="inputActions" class="operator-textarea" rows="3" placeholder="Example: Throttled discharge valve by 8% to restore BEP; calculated NPSHa (3.4m vs 3.2m req); lube oil visual sample clean with zero babbitt flakes..."></textarea>
+                            <div class="field-feedback" id="feedbackActions"></div>
+                        </div>
+
+                        <!-- MANDATORY SECTION 5 -->
+                        <div class="operator-input-block required-block" id="blockSec5">
+                            <div class="input-block-header">
+                                <span class="req-badge danger-req"><i class="fas fa-asterisk"></i> MANDATORY SECTION 5</span>
+                                <h4><i class="fas fa-bell text-danger"></i> Watch-Points &amp; Safety Escalation Triggers for Shift B</h4>
+                                <span class="input-instruction">Specify priority trends to monitor, unresolved hypotheses, and exact OISD trip cutover boundaries.</span>
+                            </div>
+                            <textarea id="inputWatchpoints" class="operator-textarea" rows="3" placeholder="Example: PRIORITY: Suction liquid temp must stay <82°C; UNRESOLVED: Suction strainer blinding vs thermal vaporization; ESCALATION: If vibration >6.5 mm/s, commission standby pump P-101B immediately..."></textarea>
+                            <div class="field-feedback" id="feedbackWatchpoints"></div>
+                        </div>
+                    </div>
+
+                    <!-- Submission Action Row -->
+                    <div class="operator-submit-bar">
+                        <div class="submit-info">
+                            <i class="fas fa-signature text-accent"></i>
+                            <span>Signing as: <strong>Lead Operator R. Verma (Shift A) • Badge #IOCL-8821</strong></span>
+                        </div>
+                        <div class="submit-buttons">
+                            <button class="btn-secondary" id="btnResetOperatorForm"><i class="fas fa-rotate-left"></i> Clear Form</button>
+                            <button class="btn-primary" id="btnSubmitOperatorHandover"><i class="fas fa-stamp"></i> Run AI Audit &amp; Sign Shift A Handover</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit Selector Presets for Review Canvas -->
+                <div class="handover-unit-bar" id="reviewUnitBar">
+                    <span class="unit-bar-label"><i class="fas fa-sliders text-accent"></i> Active Unit Handover:</span>
+                    <button class="btn-chip active" id="btnUnitPump">P-101 Booster Pump (Cavitation)</button>
+                    <button class="btn-chip" id="btnUnitColumn">C-201 Distillation (Tray Flooding)</button>
+                    <button class="btn-chip" id="btnUnitCompressor">K-301 Wet Gas Compressor (Surge)</button>
+                    <button class="btn-chip" id="btnUnitPipeline">PL-400 Interstate Pipeline (Wall Loss)</button>
+                </div>
+
+                <!-- Vague Log Comparison Alert (Toggled) -->
+                <div class="vague-log-comparison" id="vagueLogComparison" style="display:none;">
+                    <div class="card vague-box">
+                        <div class="box-title text-danger"><i class="fas fa-triangle-exclamation"></i> Conventional Logbook (Actual Field Entry):</div>
+                        <div class="vague-text">
+                            <em>"14:00 - Shift Handover. CDU feed pump running. All parameters within envelope. Unit normal. Handed over to Shift B. Sign: R. Verma"</em>
+                        </div>
+                        <div class="vague-consequence">
+                            <strong>The Hidden Trap:</strong> The entry omitted that the suction strainer DP had increased by 0.3 bar, feed temperature was creeping up by 4°C, and a slight gravel crackle was heard. 4 hours into Shift B, the pump violently cavitated and tripped the unit.
+                        </div>
+                    </div>
+                    <div class="card structured-box">
+                        <div class="box-title text-success"><i class="fas fa-circle-check"></i> ExpertFlow 5-Section Standard:</div>
+                        <div class="structured-summary-text">
+                            Below is the same handover converted into our machine-verifiable 5-section schema. Notice how weak signals and unresolved hypotheses are explicitly highlighted for Shift B!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verbal Debrief & AI Reasoning Transcriber Card -->
+                <div class="voice-debrief-card card" id="voiceDebriefCard">
+                    <div class="voice-header-flex">
+                        <div class="voice-title-box">
+                            <span class="badge-tag tag-accent"><i class="fas fa-microphone-lines"></i> TACIT VOICE DEBRIEF</span>
+                            <h3>Outgoing Shift A Verbal Debrief &amp; AI Entity Transcriber</h3>
+                            <p class="voice-sub">Spoken by Lead R. Verma (Shift A) • Auto-structured into 5 OISD-166 sections via On-Premise Whisper NLP</p>
+                        </div>
+                        <div class="voice-meta-tags">
+                            <span class="voice-pill" id="voiceStatusPill"><i class="fas fa-volume-high text-success"></i> Audio Ready (0:28s)</span>
+                            <span class="airgap-pill"><i class="fas fa-shield-halved"></i> Air-Gapped Speech NLP</span>
+                        </div>
+                    </div>
+
+                    <!-- Voice Player & Animated Waveform Bar -->
+                    <div class="voice-player-bar">
+                        <div class="player-controls-left">
+                            <button class="btn-voice-play" id="btnPlayVoiceDebrief">
+                                <i class="fas fa-play" id="voicePlayIcon"></i> <span id="voicePlayText">Play Verbal Debrief</span>
+                            </button>
+                            <button class="btn-voice-stop" id="btnStopVoiceDebrief" style="display:none;" title="Stop Audio">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                            <div class="speed-toggle-group">
+                                <button class="speed-btn active" data-speed="1.0">1.0x</button>
+                                <button class="speed-btn" data-speed="1.25">1.25x</button>
+                                <button class="speed-btn" data-speed="1.5">1.5x</button>
+                            </div>
+                        </div>
+
+                        <div class="waveform-visualizer-box">
+                            <div class="audio-waveform-container" id="audioWaveform">
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                            </div>
+                            <div class="voice-timer">
+                                <span id="voiceCurrentTime">00:00</span> / <span id="voiceTotalTime">00:28</span>
+                            </div>
+                        </div>
+
+                        <div class="player-controls-right">
+                            <button class="btn-voice-record" id="btnRecordLiveVoice">
+                                <i class="fas fa-circle-dot text-danger"></i> <span id="recordBtnLabel">Record Live Voice</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Synchronized Transcript -->
+                    <div class="voice-transcript-wrapper">
+                        <div class="transcript-top-label">
+                            <span><i class="fas fa-file-waveform text-purple"></i> Synchronized Audio Transcript:</span>
+                            <span class="confidence-badge"><i class="fas fa-check-double text-success"></i> Transcription Confidence: 99.2%</span>
+                        </div>
+                        <div class="voice-transcript-text" id="voiceTranscriptText">
+                            "Kunal, quick briefing on P-101. Around 11:30 we noticed a slight gravel crackle at the suction nozzle and vibration rose to 4.6 mm/s. Don't panic and pull the pump—we checked bearing temp and it's normal at 52°C. It's thermal cavitation because suction liquid ran 4°C hot. We boosted upstream suction drum level by 1.2m and trimmed discharge. Watch-point: keep suction liquid below 82°C. If vibration crosses 6.5 mm/s, commission standby pump P-101B."
+                        </div>
+                    </div>
+
+                    <!-- Extracted AI Entities -->
+                    <div class="voice-entities-box">
+                        <div class="entities-label"><i class="fas fa-tags text-warning"></i> Extracted Tacit Entities &amp; Diagnostics:</div>
+                        <div class="entity-pills-row" id="voiceEntityPills">
+                            <span class="entity-pill pill-asset"><i class="fas fa-industry"></i> Asset: P-101 Centrifugal Pump</span>
+                            <span class="entity-pill pill-cue"><i class="fas fa-ear-listen"></i> Acoustic Cue: Gravel Crackle at Suction</span>
+                            <span class="entity-pill pill-param"><i class="fas fa-wave-square"></i> Sensor: 4.6 mm/s Vibration (Warning)</span>
+                            <span class="entity-pill pill-check"><i class="fas fa-stethoscope"></i> Check: 52°C Bearing Housing (Rules out seizure)</span>
+                            <span class="entity-pill pill-hypo"><i class="fas fa-code-branch"></i> Root Cause: Thermal NPSH Vapor Cavitation</span>
+                            <span class="entity-pill pill-boundary"><i class="fas fa-triangle-exclamation"></i> Limit: Temp &lt; 82°C | Trip Cutover &gt; 6.5 mm/s</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="voice-action-bar">
+                        <div class="voice-action-info">
+                            <i class="fas fa-wand-magic-sparkles text-accent"></i>
+                            <span>AI converts spoken debrief into compliant OISD-166 5-section log entries with zero typing.</span>
+                        </div>
+                        <button class="btn-primary" id="btnApplyVoiceToHandover">
+                            <i class="fas fa-bolt"></i> Auto-Populate 5 Handover Sections from Audio
+                        </button>
+                    </div>
+                </div>
+
+                <!-- The 5-Section Handover Canvas -->
+                <div class="handover-canvas-card card">
+                    <div class="handover-meta-header">
+                        <div class="meta-left">
+                            <span class="handover-id-tag"><i class="fas fa-fingerprint"></i> HANDOVER-LOG #2027-084</span>
+                            <span class="meta-shift"><i class="fas fa-clock"></i> Shift A (06:00 - 14:00) → Shift B (14:00 - 22:00)</span>
+                            <span class="meta-asset" id="handoverTargetAsset">Asset: P-101 Heavy Naphtha Centrifugal Booster Pump</span>
+                        </div>
+                        <div class="meta-right">
+                            <span class="badge-status-validated" id="handoverAuditStatus"><i class="fas fa-shield-check"></i> AI Completeness Audit: Passed</span>
+                        </div>
+                    </div>
+
+                    <div class="five-section-grid" id="fiveSectionGrid">
+                        <!-- SECTION 1: NORMAL STATE -->
+                        <div class="section-box normal-state-box">
+                            <div class="section-box-header">
+                                <span class="sec-num">1</span>
+                                <h4><i class="fas fa-gauge text-accent"></i> Normal State</h4>
+                                <span class="sec-desc">Baseline Operating Parameters</span>
+                            </div>
+                            <div class="sec-content" id="secContentNormal">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: DEVIATIONS -->
+                        <div class="section-box deviations-box">
+                            <div class="section-box-header">
+                                <span class="sec-num">2</span>
+                                <h4><i class="fas fa-arrows-split-up-and-left text-warning"></i> Deviations</h4>
+                                <span class="sec-desc">Overrides &amp; Parameter Tweaks</span>
+                            </div>
+                            <div class="sec-content" id="secContentDeviations">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: OBSERVATIONS -->
+                        <div class="section-box observations-box">
+                            <div class="section-box-header">
+                                <span class="sec-num">3</span>
+                                <h4><i class="fas fa-eye text-purple"></i> Observations</h4>
+                                <span class="sec-desc">Acoustic, Sensory &amp; Weak Signals</span>
+                            </div>
+                            <div class="sec-content" id="secContentObservations">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION 4: ACTIONS TAKEN -->
+                        <div class="section-box actions-box">
+                            <div class="section-box-header">
+                                <span class="sec-num">4</span>
+                                <h4><i class="fas fa-wrench text-success"></i> Actions Taken</h4>
+                                <span class="sec-desc">Adjustments &amp; Maintenance Done</span>
+                            </div>
+                            <div class="sec-content" id="secContentActions">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION 5: WATCH-POINTS -->
+                        <div class="section-box watchpoints-box">
+                            <div class="section-box-header">
+                                <span class="sec-num">5</span>
+                                <h4><i class="fas fa-bell text-danger"></i> Watch-Points</h4>
+                                <span class="sec-desc">Critical Items for Incoming Shift</span>
+                            </div>
+                            <div class="sec-content" id="secContentWatchpoints">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shift Sign-off & Audit Action Bar -->
+                    <div class="handover-signoff-bar">
+                        <div class="signoff-parties">
+                            <div class="signoff-party">
+                                <span class="party-label">Outgoing Shift A Sign-off:</span>
+                                <span class="party-signature"><i class="fas fa-check-double text-success"></i> Verified by Lead R. Verma (06:00 - 14:00)</span>
+                            </div>
+                            <div class="signoff-party">
+                                <span class="party-label">Incoming Shift B Acknowledgment:</span>
+                                <span class="party-signature pending" id="incomingAckSignature"><i class="fas fa-hourglass-start text-warning"></i> Pending Shift B Verification</span>
+                            </div>
+                        </div>
+                        <div class="signoff-btns">
+                            <button class="btn-chip" id="btnTestBlindSignOff" style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.35);"><i class="fas fa-eye-slash"></i> Test Blind Sign-Off Block</button>
+                            <button class="btn-accent" id="btnTraceReasoningFromHandover"><i class="fas fa-project-diagram"></i> Trace Reasoning in Graph</button>
+                            <button class="btn-success" id="btnAcknowledgeHandover"><i class="fas fa-shield-halved"></i> Verify &amp; Assume Control</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 2. CONTEXT & REASONING VIA EXPERIENCE GRAPH ===== -->
+            <section class="content-section" id="section-graph">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>2. Context &amp; Reasoning via the Experience Graph</h1>
+                        <p class="section-sub">Connecting physical equipment to human diagnostic logic: Understanding the "WHY" behind every handover action</p>
+                    </div>
+                    <div class="graph-filter-chips">
+                        <span class="filter-chip active" data-filter="all">Full Reasoning Chain</span>
+                        <span class="filter-chip" data-filter="asset">Asset &amp; Situation</span>
+                        <span class="filter-chip" data-filter="signal">Signals &amp; Cues</span>
+                        <span class="filter-chip" data-filter="hypothesis">Hypotheses &amp; Checks</span>
+                        <span class="filter-chip" data-filter="decision">Decisions &amp; Lessons</span>
+                    </div>
+                </div>
+
+                <div class="knowledge-layout">
+                    <!-- Graph Network Container -->
+                    <div class="graph-container">
+                        <div id="knowledgeGraph"></div>
+                        <div class="graph-legend">
+                            <span class="legend-item"><span class="legend-dot" style="background:#00d4ff;"></span> Asset &amp; Situation</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#ff6b6b;"></span> Signals &amp; Sensor Cues</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#f9ca24;"></span> Competing Hypotheses</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#4ecdc4;"></span> Discriminating Checks</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#43e97b;"></span> Verified Decisions</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#a29bfe;"></span> Tacit Operational Lessons</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Topic / Reasoning Detail Inspector -->
+                    <div class="topic-panel" id="topicPanel">
+                        <div class="topic-panel-header">
+                            <span class="entity-badge" id="topicBadge">Reasoning Trace</span>
+                            <h3 id="topicTitle">Select Any Node to Reveal Diagnostic Logic</h3>
+                        </div>
+                        <p id="topicDescription">When the incoming shift takes over, they don't just see that a valve was throttled. They trace the complete evidence chain and competing hypotheses considered by the outgoing engineer.</p>
+
+                        <div class="reasoning-trace-card" id="reasoningTraceCard">
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-industry text-accent"></i> Asset &amp; Situation:</span>
+                                <div class="trace-val" id="traceAsset">P-101 Centrifugal Pump: Flow falling while vibration rises</div>
+                            </div>
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-wave-square text-danger"></i> Signals &amp; Cues:</span>
+                                <div class="trace-val" id="traceSignals">Suction pressure oscillation + gravel acoustic sound</div>
+                            </div>
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-code-branch text-warning"></i> Competing Hypotheses:</span>
+                                <div class="trace-val" id="traceHypotheses">Cavitation (Thermal NPSH) vs. Mechanical Bearing Degradation</div>
+                            </div>
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-stethoscope text-accent"></i> Discriminating Check:</span>
+                                <div class="trace-val" id="traceChecks">Verified bearing temperature (52°C normal); audited liquid vapor pressure at elevated temp (+4°C)</div>
+                            </div>
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-circle-check text-success"></i> Decision &amp; Action Taken:</span>
+                                <div class="trace-val" id="traceDecision">Boosted suction drum head + throttled discharge slightly to shift operating point to BEP</div>
+                            </div>
+                            <div class="trace-step">
+                                <span class="trace-label"><i class="fas fa-lightbulb text-purple"></i> Tacit Lesson Learned:</span>
+                                <div class="trace-val" id="traceLesson">"Do not infer mechanical failure from vibration alone without verifying suction NPSH."</div>
+                            </div>
+                        </div>
+
+                        <button id="topicDrillBtn" class="btn-primary" style="width:100%; margin-top:14px;">
+                            <i class="fas fa-gamepad"></i> Launch Training Drill for This Case
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 3. SCENARIO ENGINE (10X RARE EVENTS) ===== -->
+            <section class="content-section" id="section-scenarios">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>3. Scenario Engine: 10× Abnormal Event Practice</h1>
+                        <p class="section-sub">Training all shifts on rare, high-consequence operational upsets in a safe simulation sandbox</p>
+                    </div>
+                    <span class="kpi-pill"><i class="fas fa-flask"></i> Safe Failure Sandbox</span>
+                </div>
+
+                <!-- Scenario List View -->
+                <div id="scenarioList" class="scenario-grid">
+                    <!-- Populated dynamically by JS -->
+                </div>
+
+                <!-- Active Scenario Play Mode -->
+                <div id="scenarioPlay" class="scenario-play" style="display:none;">
+                    <div class="scenario-nav-bar">
+                        <button id="backToScenarios" class="back-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Scenario Library
+                        </button>
+                        <div class="scenario-boundary-warning">
+                            <i class="fas fa-shield-halved"></i> Active Safety Boundary: OISD / Plant Operating Envelope
+                        </div>
+                    </div>
+
+                    <div class="scenario-play-card">
+                        <div class="scenario-play-header">
+                            <div>
+                                <span class="scenario-badge" id="scenarioCategoryBadge">Equipment Anomaly</span>
+                                <h2 id="scenarioTitle">Scenario Title</h2>
+                            </div>
+                            <div class="scenario-stepper-info">
+                                <span class="scenario-step-label" id="scenarioStepLabel">Stage 1 of 2</span>
+                                <div class="scenario-progress-bar">
+                                    <div class="scenario-progress-fill" id="scenarioProgress"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scenario-body">
+                            <!-- Telemetry Dashboard -->
+                            <div class="telemetry-dashboard" id="telemetryPanel">
+                                <!-- Dynamic gauge telemetry widgets -->
+                            </div>
+
+                            <div class="situation-box">
+                                <div class="situation-icon"><i class="fas fa-bell"></i></div>
+                                <div class="situation-text">
+                                    <h4>Operational Context &amp; Handover Watch-Point</h4>
+                                    <p id="scenarioDescription" class="scenario-situation"></p>
+                                </div>
+                            </div>
+
+                            <!-- SIGNATURE EXPERIENCE-X PROMPT: "What would make you change your mind?" -->
+                            <div class="reasoning-prompt-container">
+                                <label><i class="fas fa-brain text-accent"></i> <strong>Socratic Diagnostic Probe:</strong> What observation or discriminating check would make you change your working hypothesis?</label>
+                                <div class="reasoning-chips" id="reasoningChips">
+                                    <!-- Dynamic hypothesis chips -->
+                                </div>
+                            </div>
+
+                            <!-- Options Grid -->
+                            <h4 class="options-heading"><i class="fas fa-hand-pointer text-accent"></i> Select Your Diagnostic or Operational Intervention:</h4>
+                            <div id="scenarioOptions" class="scenario-options"></div>
+
+                            <!-- Feedback Box -->
+                            <div id="scenarioFeedback" class="scenario-feedback" style="display:none;"></div>
+
+                            <div class="scenario-action-bar">
+                                <button id="scenarioNextBtn" class="btn-primary scenario-next-btn" style="display:none;">
+                                    Proceed to Next Operational Phase <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scenario Result View -->
+                    <div id="scenarioResult" class="scenario-result" style="display:none;">
+                        <div class="result-card">
+                            <div class="result-icon"><i class="fas fa-award"></i></div>
+                            <h2>Drill Completed</h2>
+                            <p class="result-summary">You navigated this abnormal shift event while preserving all safety and operational boundaries.</p>
+
+                            <div class="result-scores-row">
+                                <div class="score-block">
+                                    <span class="score-num" id="resultScore">0%</span>
+                                    <span class="score-lbl">Diagnostic Reasoning</span>
+                                </div>
+                                <div class="score-block">
+                                    <span class="score-num" id="resultXP">+0</span>
+                                    <span class="score-lbl">Shift Experience XP</span>
+                                </div>
+                                <div class="score-block">
+                                    <span class="score-num text-success" id="resultSafety">100%</span>
+                                    <span class="score-lbl">Safety Envelope Adherence</span>
+                                </div>
+                            </div>
+
+                            <div class="result-breakdown" id="resultBreakdown"></div>
+
+                            <div class="result-btn-row">
+                                <button id="btnViewCrossShift" class="btn-accent"><i class="fas fa-chart-radar"></i> View Cross-Shift Competency Radar</button>
+                                <button id="resultBackBtn" class="btn-secondary">Return to Scenario Library</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 4. AI EXPERIENCE COACH ===== -->
+            <section class="content-section" id="section-coach">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>4. AI Experience Coach</h1>
+                        <p class="section-sub">Evaluating diagnostic logic, risk awareness, and asking signature Socratic probes like "What would change your mind?"</p>
+                    </div>
+                    <span class="kpi-pill"><i class="fas fa-shield-halved"></i> Grounded in OISD Standards</span>
+                </div>
+
+                <div class="chat-container">
+                    <div class="coach-toolbar">
+                        <span class="coach-persona"><i class="fas fa-user-gear"></i> <strong>SME Digital Twin:</strong> 25+ Years Experience (IOCL / ONGC Refining Operations)</span>
+                        <div class="grounding-tags">
+                            <span class="tag-pill"><i class="fas fa-book"></i> Handover Standards</span>
+                            <span class="tag-pill"><i class="fas fa-file-shield"></i> Validated Experience Graph</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot">
+                            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                            <div class="message-content">
+                                <p>Welcome, Shift Operator. I am your <strong>Socratic Experience Coach</strong>.</p>
+                                <p>In plant operations, writing "unit normal" when subtle deviations exist is a leading precursor to major plant upsets. I am here to test your diagnostic discipline. When you propose an action, I will challenge you: <em>"What observation would make you change your mind?"</em></p>
+                                <p>What equipment symptom, handover watchpoint, or operating anomaly are you investigating?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="suggestions" id="suggestions">
+                        <span class="suggestion-chip" data-question="Why is 'unit normal' considered a dangerous failure in shift handovers?">Why 'Unit Normal' Fails</span>
+                        <span class="suggestion-chip" data-question="How do I distinguish pump cavitation from bearing failure during a handover?">Pump: Cavitation vs Bearing</span>
+                        <span class="suggestion-chip" data-question="What discriminating checks confirm column flooding versus chemical foaming?">Column: Flooding vs Foaming</span>
+                        <span class="suggestion-chip" data-question="What should an incoming shift do when handed a compressor surge watchpoint?">Compressor Surge Protocol</span>
+                        <span class="suggestion-chip" data-question="How should subtle acoustic cues be documented in the 5-section model?">Recording Subtle Cues</span>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Pose a handover anomaly, diagnostic check, or operational hypothesis..." autocomplete="off">
+                        <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 5. CROSS-SHIFT COMPETENCY ENGINE ===== -->
+            <section class="content-section" id="section-cross-shift">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>5. Standardized Competency Across Shifts</h1>
+                        <p class="section-sub">Eliminating the shift-to-shift performance lottery: Benchmarking Shift A vs. Shift B vs. Shift C</p>
+                    </div>
+                    <span class="kpi-pill success"><i class="fas fa-scale-balanced"></i> Target: &lt;5% Inter-Shift Variance</span>
+                </div>
+
+                <div class="skills-layout">
+                    <!-- Cross-Shift Radar Card -->
+                    <div class="card radar-card">
+                        <div class="card-title-row">
+                            <h3><i class="fas fa-chart-radar text-accent"></i> Multi-Shift Competency Radar</h3>
+                            <div class="shift-radar-legend">
+                                <span class="legend-chip shift-a-chip"><i class="fas fa-circle"></i> Shift A (Morning)</span>
+                                <span class="legend-chip shift-b-chip"><i class="fas fa-circle"></i> Shift B (Evening)</span>
+                                <span class="legend-chip shift-c-chip"><i class="fas fa-circle"></i> Shift C (Night)</span>
+                            </div>
+                        </div>
+                        <p class="helper-text">Visualizes how different shift crews perform on the same diagnostic scenarios and handover discipline.</p>
+                        <div class="chart-wrapper">
+                            <canvas id="skillsRadarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Shift Variance & Parity Detail -->
+                    <div class="card skills-detail-card">
+                        <div class="card-title-row">
+                            <h3><i class="fas fa-sliders text-accent"></i> Competency Variance Analysis</h3>
+                            <span class="tag-warning" id="shiftDisparityBadge">Shift C Night Gap Identified</span>
+                        </div>
+                        <div class="shift-variance-table">
+                            <div class="variance-row header-row">
+                                <span>Core Capability</span>
+                                <span>Shift A</span>
+                                <span>Shift B</span>
+                                <span>Shift C</span>
+                                <span>Variance</span>
+                            </div>
+                            <div class="variance-row">
+                                <span class="cap-name">Structured Diagnosis</span>
+                                <span class="val-a">88%</span>
+                                <span class="val-b">82%</span>
+                                <span class="val-c warning-val">64%</span>
+                                <span class="val-gap text-danger">24% Gap</span>
+                            </div>
+                            <div class="variance-row">
+                                <span class="cap-name">Risk Awareness &amp; OISD</span>
+                                <span class="val-a">92%</span>
+                                <span class="val-b">90%</span>
+                                <span class="val-c warning-val">74%</span>
+                                <span class="val-gap text-warning">18% Gap</span>
+                            </div>
+                            <div class="variance-row">
+                                <span class="cap-name">Decision Discipline</span>
+                                <span class="val-a">85%</span>
+                                <span class="val-b">80%</span>
+                                <span class="val-c warning-val">62%</span>
+                                <span class="val-gap text-danger">23% Gap</span>
+                            </div>
+                            <div class="variance-row">
+                                <span class="cap-name">Weak Signal Identification</span>
+                                <span class="val-a">82%</span>
+                                <span class="val-b">78%</span>
+                                <span class="val-c warning-val">58%</span>
+                                <span class="val-gap text-danger">24% Gap</span>
+                            </div>
+                            <div class="variance-row">
+                                <span class="cap-name">Handover Rigor (5-Section)</span>
+                                <span class="val-a">94%</span>
+                                <span class="val-b">92%</span>
+                                <span class="val-c warning-val">70%</span>
+                                <span class="val-gap text-warning">24% Gap</span>
+                            </div>
+                        </div>
+
+                        <div class="variance-action-box">
+                            <i class="fas fa-lightbulb text-warning"></i>
+                            <div>
+                                <strong>Root Cause Identified:</strong> Shift C (Night) has 3 recent recruits who rely on "unit normal" and lack exposure to column flooding events.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workforce Acceleration Metric -->
+                <div class="card time-saved-card">
+                    <div class="time-saved-content">
+                        <div class="time-saved-icon"><i class="fas fa-scale-balanced"></i></div>
+                        <div class="time-saved-info">
+                            <h3>Cross-Shift Standardization Impact</h3>
+                            <p>Continuous scenario exposure and structured handovers equalize operational quality:</p>
+                            <div class="time-saved-value">
+                                <span class="big-number">84%</span> Reduction in Shift Variance
+                                <small>across Night vs. Day Shift decision consistency</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== 6. 1-PAGE MENTOR COACHING BRIEF ===== -->
+            <section class="content-section" id="section-mentor-brief">
+                <div class="section-header-compact">
+                    <div>
+                        <h1>6. Automated 1-Page Mentor Coaching Brief</h1>
+                        <p class="section-sub">Turning competency tracking into surgical 15-minute interventions for plant mentors</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-primary" id="btnLogMentorSession"><i class="fas fa-check-circle"></i> Log Completed 15-Min Session</button>
+                    </div>
+                </div>
+
+                <div class="mentor-brief-layout">
+                    <!-- The Formal 1-Page Coaching Document Canvas -->
+                    <div class="card mentor-doc-card">
+                        <div class="doc-header">
+                            <div class="doc-header-left">
+                                <span class="doc-badge"><i class="fas fa-file-shield"></i> EXPERTFLOW MENTOR INTERVENTION BRIEF</span>
+                                <h2>Targeted Shift Coaching Plan: Shift C (Night Crew)</h2>
+                                <span class="doc-meta">Generated for: Senior Superintendent R.K. Sharma • Focus: Closing Cavitation &amp; Flooding Gaps</span>
+                            </div>
+                            <div class="doc-header-right">
+                                <span class="urgency-badge high">Priority: High (Shift C Disparity)</span>
+                            </div>
+                        </div>
+
+                        <div class="doc-body" id="mentorBriefDocBody">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Action Side Panel -->
+                    <div class="card mentor-side-panel">
+                        <div class="card-title-row">
+                            <h3><i class="fas fa-user-tie text-accent"></i> Mentor Implementation Loop</h3>
+                        </div>
+                        <div class="mentor-steps">
+                            <div class="m-step">
+                                <span class="m-step-num">1</span>
+                                <div class="m-step-text">
+                                    <strong>AI Detects Gap:</strong> System notices Shift C operators repeatedly confuse cavitation with mechanical failure.
+                                </div>
+                            </div>
+                            <div class="m-step">
+                                <span class="m-step-num">2</span>
+                                <div class="m-step-text">
+                                    <strong>Generates 1-Page Brief:</strong> Eliminates mentor prep time by summarizing exact misconceptions and 3 probing questions.
+                                </div>
+                            </div>
+                            <div class="m-step">
+                                <span class="m-step-num">3</span>
+                                <div class="m-step-text">
+                                    <strong>15-Minute Coaching:</strong> Senior engineer conducts targeted Socratic session before shift start.
+                                </div>
+                            </div>
+                            <div class="m-step">
+                                <span class="m-step-num">4</span>
+                                <div class="m-step-text">
+                                    <strong>Loop Closes:</strong> Trainees re-run the scenario drill; the competency radar equalizes.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-action-btns">
+                            <button class="btn-outline" style="width:100%;" id="btnExportPDF"><i class="fas fa-print"></i> Print / Export 1-Page PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Active Comprehension Verification Gate Modal (Anti-Rubber-Stamping Engine) -->
+    <div class="modal-overlay" id="comprehensionGateOverlay" style="display:none;">
+        <div class="comprehension-modal">
+            <div class="comprehension-modal-header">
+                <div>
+                    <span class="gate-badge"><i class="fas fa-shield-halved"></i> ANTI-RUBBER-STAMPING PROTOCOL • OISD-166</span>
+                    <h2>Active Handover Comprehension Gate</h2>
+                    <span class="gate-sub">Assuming operational control of Unit P-101 requires verified situational awareness. Blind sign-offs are strictly forbidden.</span>
+                </div>
+                <button class="btn-modal-close" id="btnCloseGateModal"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="comprehension-modal-body">
+                <!-- Anti-Speedrun Dwell Time Indicator -->
+                <div class="dwell-time-bar">
+                    <div class="dwell-icon"><i class="fas fa-stopwatch text-accent"></i></div>
+                    <div class="dwell-text">
+                        <strong>Review Dwell-Time Compliance:</strong>
+                        <span id="dwellStatusText">Minimum 15s cognitive review required. Time elapsed: <span id="dwellTimerCount">18s</span></span>
+                    </div>
+                    <span class="dwell-pill ok" id="dwellPill">Dwell Time: Passed</span>
+                </div>
+
+                <!-- PART 1: Itemized Watch-Point Check-Off -->
+                <div class="gate-section">
+                    <h4 class="gate-section-title"><i class="fas fa-list-check text-warning"></i> Part 1: Itemized Affirmation of Shift A Watch-Points (Mandatory)</h4>
+                    <p class="gate-helper">You must explicitly review and affirm each active operational constraint logged by Shift A:</p>
+                    
+                    <div class="watchpoint-checklist">
+                        <label class="check-item">
+                            <input type="checkbox" id="chkWatchpoint1" class="gate-checkbox">
+                            <span class="check-label-text">
+                                <strong>NPSH Vapor Pressure Boundary:</strong> I acknowledge that suction liquid temperature has crept up (+4°C) and must strictly stay <strong>below 82°C</strong> to prevent acute vapor cavitation.
+                            </span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="chkWatchpoint2" class="gate-checkbox">
+                            <span class="check-label-text">
+                                <strong>Active Unresolved Hypothesis:</strong> I acknowledge the competing causes under surveillance: <em>Suction strainer partial blinding vs. thermal cavitation</em>.
+                            </span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="chkWatchpoint3" class="gate-checkbox">
+                            <span class="check-label-text">
+                                <strong>OISD-119 Escalation Limit:</strong> If casing vibration increases from 4.6 mm/s to <strong>exceed 6.5 mm/s</strong>, I will immediately execute cutover to standby pump P-101B.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PART 2: Socratic Cognitive Awareness Probe -->
+                <div class="gate-section">
+                    <h4 class="gate-section-title"><i class="fas fa-brain text-accent"></i> Part 2: Socratic Cognitive Verification Probe</h4>
+                    <p class="gate-helper">Generated from Shift A's specific input: Prove that you read the diagnostic rationale before assuming control.</p>
+
+                    <div class="socratic-quiz-box">
+                        <p class="quiz-question" id="quizQuestionText">
+                            <strong>Diagnostic Check:</strong> Shift A logged that pump P-101 exhibited a gravel-like acoustic crackle and vibration rose to 4.6 mm/s. Why did Shift A <em>postpone pulling the pump for a mechanical bearing overhaul</em>?
+                        </p>
+                        <div class="quiz-options" id="quizOptionsList">
+                            <button class="quiz-opt-btn" data-correct="true">
+                                <span class="opt-letter">A.</span>
+                                <span>Bearing housing temperature was normal at 52°C (well below 75°C failure limit), proving it was thermal cavitation, not bearing seizure.</span>
+                            </button>
+                            <button class="quiz-opt-btn" data-correct="false">
+                                <span class="opt-letter">B.</span>
+                                <span>The standby pump P-101B was out of commission for scheduled annual servicing.</span>
+                            </button>
+                            <button class="quiz-opt-btn" data-correct="false">
+                                <span class="opt-letter">C.</span>
+                                <span>The shift engineer forgot to notify maintenance before the shift ended.</span>
+                            </button>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedbackBox" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <!-- PART 3: Enterprise Biometric Dual-Presence Terminal Scanner -->
+                <div class="gate-section">
+                    <div class="gate-section-header-flex">
+                        <div>
+                            <h4 class="gate-section-title"><i class="fas fa-shield-halved text-success"></i> Part 3: Dual-Presence Biometric Verification (OISD-166 &amp; IEC 62443)</h4>
+                            <p class="gate-helper">Air-gapped on-premise verification against official refinery HR onboarding records. Mandatory physical co-presence of both Shift In-Charges at CCR Console.</p>
+                        </div>
+                        <div class="airgap-security-tag">
+                            <i class="fas fa-lock"></i> Air-Gapped Local Inference (Zero Cloud Data)
+                        </div>
+                    </div>
+
+                    <div class="dual-presence-layout">
+                        <!-- Left: Shift A Verified HR Master Card -->
+                        <div class="operator-id-card shift-a-card">
+                            <div class="card-id-header">
+                                <span class="badge-role">Outgoing Shift A In-Charge</span>
+                                <span class="badge-verified-hr"><i class="fas fa-check-circle"></i> HR Verified</span>
+                            </div>
+                            <div class="card-id-body">
+                                <div class="id-avatar-box">
+                                    <div class="id-photo-placeholder a-photo">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <span class="psm-level-badge">PSM L4</span>
+                                </div>
+                                <div class="id-details">
+                                    <div class="id-name">Rajesh Verma</div>
+                                    <div class="id-meta">Badge: <strong>IOCL-4310</strong></div>
+                                    <div class="id-dept">CDU / VDU Shift Superintendent</div>
+                                    <div class="id-status-pill status-relinquish">
+                                        <i class="fas fa-arrow-right-from-bracket"></i> Relinquishing Custody
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center: CCR Dual-Lens Console Camera Feed -->
+                        <div class="ccr-console-cam-card">
+                            <div class="cam-top-bar">
+                                <div class="cam-live-indicator">
+                                    <span class="rec-blink">●</span> REC <span class="cam-id">CCR-CONSOLE-04</span>
+                                </div>
+                                <div class="cam-controls">
+                                    <button type="button" class="btn-cam-switch" id="btnToggleCamFeed">
+                                        <i class="fas fa-camera"></i> <span id="camSwitchLabel">Use Local Webcam</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="cam-viewport-container" id="camViewport">
+                                <!-- Real Webcam Video (hidden by default) -->
+                                <video id="dualPresenceWebcam" autoplay playsinline muted style="display:none;"></video>
+                                
+                                <!-- High-Tech Simulated Terminal Screen -->
+                                <div class="cctv-sim-screen" id="cctvSimScreen">
+                                    <div class="hud-grid-overlay"></div>
+                                    <div class="hud-scanline"></div>
+                                    <div class="hud-corner top-left"></div>
+                                    <div class="hud-corner top-right"></div>
+                                    <div class="hud-corner bottom-left"></div>
+                                    <div class="hud-corner bottom-right"></div>
+
+                                    <!-- Detected Face 1: Verma -->
+                                    <div class="face-target-box face-a" id="faceBoxA">
+                                        <div class="target-reticle"></div>
+                                        <div class="target-tag">
+                                            <span class="target-name">R. Verma (Shift A)</span>
+                                            <span class="target-match">Match: 98.4%</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Detected Face 2: Mukherjee -->
+                                    <div class="face-target-box face-b" id="faceBoxB">
+                                        <div class="target-reticle"></div>
+                                        <div class="target-tag">
+                                            <span class="target-name">K. Mukherjee (Shift B)</span>
+                                            <span class="target-match">Match: 97.9%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="feed-subtext">Local Edge Vector Match (Cosine Sim: 0.982) • ISO/IEC 19794-5 Compliant</div>
+                                </div>
+                            </div>
+
+                            <!-- Dual-Presence Verification Status Banner -->
+                            <div class="dual-presence-status-banner ok" id="dualPresenceBanner">
+                                <i class="fas fa-users-viewfinder text-success"></i>
+                                <span><strong>Dual-Presence Confirmed:</strong> Both in-charges verified at terminal. OISD-166 face-to-face debrief satisfied.</span>
+                            </div>
+                        </div>
+
+                        <!-- Right: Shift B Verified HR Master Card -->
+                        <div class="operator-id-card shift-b-card">
+                            <div class="card-id-header">
+                                <span class="badge-role">Incoming Shift B In-Charge</span>
+                                <span class="badge-verified-hr"><i class="fas fa-check-circle"></i> HR Verified</span>
+                            </div>
+                            <div class="card-id-body">
+                                <div class="id-avatar-box">
+                                    <div class="id-photo-placeholder b-photo">
+                                        <i class="fas fa-user-shield"></i>
+                                    </div>
+                                    <span class="psm-level-badge">PSM L4</span>
+                                </div>
+                                <div class="id-details">
+                                    <div class="id-name">Kunal Mukherjee</div>
+                                    <div class="id-meta">Badge: <strong>IOCL-7749</strong></div>
+                                    <div class="id-dept">Senior Console Operations Lead</div>
+                                    <div class="id-status-pill status-assume">
+                                        <i class="fas fa-shield-halved"></i> Assuming Legal Control
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comprehension-modal-footer">
+                <div class="gate-sign-info">
+                    <i class="fas fa-id-badge text-accent"></i>
+                    <span>Authorized Joint Signatories: <strong>Lead R. Verma (Shift A • #IOCL-4310) ⇄ Lead K. Mukherjee (Shift B • #IOCL-7749)</strong></span>
+                </div>
+                <div class="gate-footer-btns">
+                    <button class="btn-secondary" id="btnCancelGateModal">Cancel &amp; Re-read Log</button>
+                    <button class="btn-success" id="btnConfirmActiveVerification" disabled>
+                        <i class="fas fa-signature"></i> Affirm &amp; Seal Handover
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5-Minute Solution Demo Modal -->
+    <div class="demo-overlay" id="demoOverlay" style="display:none;">
+        <div class="demo-modal">
+            <div class="demo-modal-header">
+                <div>
+                    <span class="badge-iew"><i class="fas fa-bullhorn"></i> COMPETITION DEMO FLOW</span>
+                    <h3 id="demoStepHeading">Step 1: The "Unit Normal" Failure Mode</h3>
+                </div>
+                <button class="btn-demo-close" id="btnExitDemo"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="demo-modal-body" id="demoStepBody">
+                <!-- Injected step narration & CTA -->
+            </div>
+            <div class="demo-modal-footer">
+                <span class="demo-step-counter" id="demoStepCounter">Step 1 of 5</span>
+                <div class="demo-nav-btns">
+                    <button class="btn-secondary" id="btnPrevDemoStep"><i class="fas fa-chevron-left"></i> Previous</button>
+                    <button class="btn-primary" id="btnNextDemoStep">Next Step <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CDN Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
