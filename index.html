@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExpertFlow | Structured Experience Handover &amp; Cross-Shift Competency — IEW 2027</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,19 +17,37 @@
     <div class="pitch-banner">
         <div class="pitch-banner-left">
             <span class="badge-iew"><i class="fas fa-award"></i> IEW 2027 HACKATHON</span>
-            <span class="banner-title"><strong>ExpertFlow:</strong> Operational Continuity &amp; Cross-Shift Competency</span>
+            <span class="banner-title" id="txtBannerTitle"><strong>ExpertFlow:</strong> Operational Continuity &amp; Cross-Shift Competency</span>
         </div>
         <div class="pitch-banner-center">
             <div class="shift-live-indicator">
-                <span class="shift-tag shift-a-tag"><i class="fas fa-sun"></i> Shift A (Outgoing)</span>
+                <span class="shift-tag shift-a-tag" id="txtShiftATag"><i class="fas fa-sun"></i> Shift A (Outgoing)</span>
                 <i class="fas fa-arrow-right-long text-accent"></i>
-                <span class="shift-tag shift-b-tag active-shift"><i class="fas fa-cloud-sun"></i> Shift B (Incoming Lead)</span>
+                <span class="shift-tag shift-b-tag active-shift" id="txtShiftBTag"><i class="fas fa-cloud-sun"></i> Shift B (Incoming Lead)</span>
                 <span class="pulse-indicator"></span>
             </div>
         </div>
         <div class="pitch-banner-right">
+            <!-- 40+ Senior Operator Mode Toggle -->
+            <button class="btn-accessibility" id="btnToggleSeniorMode" title="40+ Senior Operator Mode (Large Text &amp; High Contrast)">
+                <i class="fas fa-glasses"></i> <span id="labelSeniorMode">Senior Mode (40+)</span>
+            </button>
+
+            <!-- Font Sizer (A- / Reset / A+) -->
+            <div class="font-sizer-group">
+                <button class="font-btn" id="btnFontDecr" title="Decrease Font">A-</button>
+                <button class="font-btn active" id="btnFontReset" title="Reset Font">Reset</button>
+                <button class="font-btn" id="btnFontIncr" title="Increase Font">A+</button>
+            </div>
+
+            <!-- Language Switcher: English / Hindi -->
+            <div class="lang-switch-group">
+                <button class="lang-btn active" id="btnLangEN" data-lang="en">EN</button>
+                <button class="lang-btn" id="btnLangHI" data-lang="hi">हिन्दी</button>
+            </div>
+
             <button class="btn-demo-mode" id="btnQuickDemo">
-                <i class="fas fa-play-circle"></i> 5-Min Solution Demo
+                <i class="fas fa-play-circle"></i> <span id="txtBtnDemo">5-Min Demo</span>
             </button>
         </div>
     </div>
@@ -517,8 +535,8 @@
                         <div class="section-box normal-state-box">
                             <div class="section-box-header">
                                 <span class="sec-num">1</span>
-                                <h4><i class="fas fa-gauge text-accent"></i> Normal State</h4>
-                                <span class="sec-desc">Baseline Operating Parameters</span>
+                                <h4 id="lblSecTitle1"><i class="fas fa-gauge text-accent"></i> Normal State</h4>
+                                <span class="sec-desc" id="lblSecDesc1">Baseline Operating Parameters</span>
                             </div>
                             <div class="sec-content" id="secContentNormal">
                                 <!-- Populated dynamically by JS -->
@@ -529,8 +547,8 @@
                         <div class="section-box deviations-box">
                             <div class="section-box-header">
                                 <span class="sec-num">2</span>
-                                <h4><i class="fas fa-arrows-split-up-and-left text-warning"></i> Deviations</h4>
-                                <span class="sec-desc">Overrides &amp; Parameter Tweaks</span>
+                                <h4 id="lblSecTitle2"><i class="fas fa-arrows-split-up-and-left text-warning"></i> Deviations</h4>
+                                <span class="sec-desc" id="lblSecDesc2">Overrides &amp; Parameter Tweaks</span>
                             </div>
                             <div class="sec-content" id="secContentDeviations">
                                 <!-- Populated dynamically by JS -->
@@ -541,8 +559,8 @@
                         <div class="section-box observations-box">
                             <div class="section-box-header">
                                 <span class="sec-num">3</span>
-                                <h4><i class="fas fa-eye text-purple"></i> Observations</h4>
-                                <span class="sec-desc">Acoustic, Sensory &amp; Weak Signals</span>
+                                <h4 id="lblSecTitle3"><i class="fas fa-eye text-purple"></i> Observations</h4>
+                                <span class="sec-desc" id="lblSecDesc3">Acoustic, Sensory &amp; Weak Signals</span>
                             </div>
                             <div class="sec-content" id="secContentObservations">
                                 <!-- Populated dynamically by JS -->
@@ -553,8 +571,8 @@
                         <div class="section-box actions-box">
                             <div class="section-box-header">
                                 <span class="sec-num">4</span>
-                                <h4><i class="fas fa-wrench text-success"></i> Actions Taken</h4>
-                                <span class="sec-desc">Adjustments &amp; Maintenance Done</span>
+                                <h4 id="lblSecTitle4"><i class="fas fa-wrench text-success"></i> Actions Taken</h4>
+                                <span class="sec-desc" id="lblSecDesc4">Adjustments &amp; Maintenance Done</span>
                             </div>
                             <div class="sec-content" id="secContentActions">
                                 <!-- Populated dynamically by JS -->
@@ -565,8 +583,8 @@
                         <div class="section-box watchpoints-box">
                             <div class="section-box-header">
                                 <span class="sec-num">5</span>
-                                <h4><i class="fas fa-bell text-danger"></i> Watch-Points</h4>
-                                <span class="sec-desc">Critical Items for Incoming Shift</span>
+                                <h4 id="lblSecTitle5"><i class="fas fa-bell text-danger"></i> Watch-Points</h4>
+                                <span class="sec-desc" id="lblSecDesc5">Critical Items for Incoming Shift</span>
                             </div>
                             <div class="sec-content" id="secContentWatchpoints">
                                 <!-- Populated dynamically by JS -->
@@ -1004,8 +1022,8 @@
             <div class="comprehension-modal-header">
                 <div>
                     <span class="gate-badge"><i class="fas fa-shield-halved"></i> ANTI-RUBBER-STAMPING PROTOCOL • OISD-166</span>
-                    <h2>Active Handover Comprehension Gate</h2>
-                    <span class="gate-sub">Assuming operational control of Unit P-101 requires verified situational awareness. Blind sign-offs are strictly forbidden.</span>
+                    <h2 id="gateModalHeaderTitle">Active Handover Comprehension Gate</h2>
+                    <span class="gate-sub" id="gateModalHeaderSub">Assuming operational control of Unit P-101 requires verified situational awareness. Blind sign-offs are strictly forbidden.</span>
                 </div>
                 <button class="btn-modal-close" id="btnCloseGateModal"><i class="fas fa-times"></i></button>
             </div>
@@ -1015,7 +1033,7 @@
                 <div class="dwell-time-bar">
                     <div class="dwell-icon"><i class="fas fa-stopwatch text-accent"></i></div>
                     <div class="dwell-text">
-                        <strong>Review Dwell-Time Compliance:</strong>
+                        <strong id="dwellTitleText">Review Dwell-Time Compliance:</strong>
                         <span id="dwellStatusText">Minimum 15s cognitive review required. Time elapsed: <span id="dwellTimerCount">18s</span></span>
                     </div>
                     <span class="dwell-pill ok" id="dwellPill">Dwell Time: Passed</span>
@@ -1023,8 +1041,8 @@
 
                 <!-- PART 1: Itemized Watch-Point Check-Off -->
                 <div class="gate-section">
-                    <h4 class="gate-section-title"><i class="fas fa-list-check text-warning"></i> Part 1: Itemized Affirmation of Shift A Watch-Points (Mandatory)</h4>
-                    <p class="gate-helper">You must explicitly review and affirm each active operational constraint logged by Shift A:</p>
+                    <h4 class="gate-section-title" id="gatePart1Title"><i class="fas fa-list-check text-warning"></i> Part 1: Itemized Affirmation of Shift A Watch-Points (Mandatory)</h4>
+                    <p class="gate-helper" id="gatePart1Helper">You must explicitly review and affirm each active operational constraint logged by Shift A:</p>
                     
                     <div class="watchpoint-checklist">
                         <label class="check-item">
@@ -1050,8 +1068,8 @@
 
                 <!-- PART 2: Socratic Cognitive Awareness Probe -->
                 <div class="gate-section">
-                    <h4 class="gate-section-title"><i class="fas fa-brain text-accent"></i> Part 2: Socratic Cognitive Verification Probe</h4>
-                    <p class="gate-helper">Generated from Shift A's specific input: Prove that you read the diagnostic rationale before assuming control.</p>
+                    <h4 class="gate-section-title" id="gatePart2Title"><i class="fas fa-brain text-accent"></i> Part 2: Socratic Cognitive Verification Probe</h4>
+                    <p class="gate-helper" id="gatePart2Helper">Generated from Shift A's specific input: Prove that you read the diagnostic rationale before assuming control.</p>
 
                     <div class="socratic-quiz-box">
                         <p class="quiz-question" id="quizQuestionText">
@@ -1079,8 +1097,8 @@
                 <div class="gate-section">
                     <div class="gate-section-header-flex">
                         <div>
-                            <h4 class="gate-section-title"><i class="fas fa-shield-halved text-success"></i> Part 3: Dual-Presence Biometric Verification (OISD-166 &amp; IEC 62443)</h4>
-                            <p class="gate-helper">Air-gapped on-premise verification against official refinery HR onboarding records. Mandatory physical co-presence of both Shift In-Charges at CCR Console.</p>
+                            <h4 class="gate-section-title" id="gatePart3Title"><i class="fas fa-shield-halved text-success"></i> Part 3: Dual-Presence Biometric Verification (OISD-166 &amp; IEC 62443)</h4>
+                            <p class="gate-helper" id="gatePart3Helper">Air-gapped on-premise verification against official refinery HR onboarding records. Mandatory physical co-presence of both Shift In-Charges at CCR Console.</p>
                         </div>
                         <div class="airgap-security-tag">
                             <i class="fas fa-lock"></i> Air-Gapped Local Inference (Zero Cloud Data)

@@ -20,7 +20,10 @@ const appState = {
         'Decision Discipline',
         'Weak Signal Identification',
         'Handover Rigor (5-Sec)'
-    ]
+    ],
+    language: 'en',
+    seniorMode: false,
+    fontScaleIndex: 1
 };
 
 let radarChart = null;
@@ -153,8 +156,358 @@ const HANDOVER_DATA = {
 };
 
 // ==========================================================================
-// 2. NAVIGATION & TAB SWITCHING
+// 1.1 BILINGUAL REPOSITORIES & LOCALIZATION DICTIONARY (HINDI / ENGLISH)
 // ==========================================================================
+
+const HANDOVER_DATA_HI = {
+    pump: {
+        assetName: "P-101 हेवी नैफ्था सेंट्रीफ्यूगल बूस्टर पंप (क्रूड डिस्टिलेशन यूनिट)",
+        normal: [
+            { label: "फीड थ्रूपुट", val: "850 m³/h (100% रेटेड डिजाइन थ्रूपुट)" },
+            { label: "डिस्चार्ज प्रेशर", val: "14.2 kg/cm² स्थिर" },
+            { label: "मोटर पावर और एम्प्स", val: "315 kW • 52 एम्पीयर (तीनों फेज संतुलित)" },
+            { label: "ल्यूब ऑयल प्रेशर", val: "2.1 bar @ 44°C (डुप्लेक्स कूलर चालू)" }
+        ],
+        deviations: [
+            { label: "कूलिंग बाईपास स्थिति", val: "प्री-हीट सर्ज को रोकने के लिए 11:30 बजे मैनुअल बाईपास 5% खोला गया" },
+            { label: "सक्शन स्ट्रेनर DP", val: "शिफ्ट A के दौरान 0.15 bar से बढ़कर 0.42 bar हुआ" },
+            { label: "सक्शन ड्रम स्तर", val: "डीसॉल्टर वॉश स्विंग के कारण 48% पर (लक्ष्य: 60%)" }
+        ],
+        observations: [
+            { label: "ध्वनि संकेत (Acoustic)", val: "13:10 बजे सक्शन नोजल के पास बजरी जैसी चरमराहट (gravel crackle) सुनी गई" },
+            { label: "केसिंग कंपन (Vibration)", val: "2.1 mm/s से बढ़कर 4.6 mm/s हुआ (अलार्म सीमा: 7.0 mm/s)" },
+            { label: "बेयरिंग हाउसिंग तापमान", val: "52°C पर सामान्य (मैकेनिकल सीजर की संभावना खारिज)" }
+        ],
+        actions: [
+            { label: "डिस्चार्ज वाल्व नियंत्रण", val: "पंप को BEP (सर्वोत्तम दक्षता बिंदु) पर लाने के लिए डिस्चार्ज वाल्व 8% थ्रॉटल किया" },
+            { label: "NPSH गणना", val: "NPSHa: 3.4m बनाम NPSHr: 3.2m की गणना की (0.2m का क्रिटिकल मार्जिन)" },
+            { label: "ल्यूब ऑयल नमूना", val: "दृश्य निरीक्षण: साफ, कोई धातु के कण या बैबिट बुरादा नहीं" }
+        ],
+        watchpoints: [
+            { label: "प्राथमिक निगरानी (PRIORITY)", val: "सक्शन तरल तापमान: यदि तापमान 82°C से ऊपर जाता है, तो तीव्र वेपर कैविटेशन शुरू हो जाएगी" },
+            { label: "अनिर्णीत परिकल्पना", val: "सक्शन स्ट्रेनर का आंशिक जाम होना बनाम थर्मल वेपर बबल निर्माण" },
+            { label: "OISD-119 एस्केलेशन नियम", val: "यदि कंपन 6.5 mm/s से अधिक हो, तो OISD-119 के तहत तुरंत स्टैंडबाय पंप P-101B चालू करें" }
+        ],
+        graphFocusId: 1
+    },
+    column: {
+        assetName: "C-201 एटमॉस्फेरिक डिस्टिलेशन कॉलम (42 सीव ट्रे)",
+        normal: [
+            { label: "क्रूड चार्ज दर", val: "1,200 m³/h (फ्लैश जोन पर 365°C तक प्री-हीटेड)" },
+            { label: "कॉलम टॉप प्रेशर", val: "1.45 kg/cm² गेज" },
+            { label: "बॉटम स्ट्रिपिंग स्टीम", val: "4.2 T/h @ 12 bar सैचुरेटेड" },
+            { label: "नैफ्था ड्रा दर", val: "210 m³/h विनिर्देशानुसार" }
+        ],
+        deviations: [
+            { label: "टॉप रिफ्लक्स फ्लो ओवरराइड", val: "कंट्रोलर मैनुअल 145 m³/h पर सेट (सामान्य: 120 m³/h)" },
+            { label: "ओवरहेड DP वृद्धि दर", val: "पिछले 90 मिनट में DP 240 mmWC से बढ़कर 395 mmWC हुआ" },
+            { label: "रिफ्लक्स सब-कूलिंग", val: "42°C पर वापसी (अत्यधिक ठंडा, जिससे भारी आंतरिक संघनन हो रहा है)" }
+        ],
+        observations: [
+            { label: "रिफ्लक्स संचायक स्तर", val: "स्तर तेजी से बदल रहा है (साइट ग्लास पर ±15% उतार-चढ़ाव)" },
+            { label: "मध्यम खंड डेल्टा-T", val: "DCS ट्रेंड पर ट्रे 18-24 तापमान में 8°C की गिरावट देखी गई" },
+            { label: "उत्पाद गंध परीक्षण", val: "13:30 बजे लाइट नैफ्था नमूने में भारी हाइड्रोकार्बन टेल की गंध" }
+        ],
+        actions: [
+            { label: "रीबॉयलर हीट होल्ड", val: "रीबॉयलर फ्यूल गैस में कटौती नहीं की (ट्रे डंपिंग को रोका)" },
+            { label: "नमूना जांच", val: "प्रयोगशाला ASTM D86 डिस्टिलेशन कर्व ऑडिट के लिए टॉप नैफ्था नमूना भेजा" },
+            { label: "एंटी-फोम तैयारी", val: "सत्यापित किया कि एंटी-फोम केमिकल इंजेक्शन स्किड तैयार और उपलब्ध है" }
+        ],
+        watchpoints: [
+            { label: "हाइड्रोलिक फ्लडिंग जोखिम", val: "कॉलम DP पर नजर रखें: यदि DP 430 mmWC तक पहुंचता है, तो डाउनकमर चोक हो जाएंगे" },
+            { label: "रिफ्लक्स डी-एस्केलेशन", val: "आने वाले लीड को टॉप रिफ्लक्स फ्लो 5 m³/h के चरणों में घटाकर 125 m³/h तक लाना चाहिए" },
+            { label: "OISD-108 सुरक्षा सीमा", val: "यदि ओवरहेड दबाव 2.8 kg/cm² पर पहुंचता है, तो तुरंत फ्लेयर डाइवर्जन निष्पादित करें" }
+        ],
+        graphFocusId: 2
+    },
+    compressor: {
+        assetName: "K-301 टू-स्टेज सेंट्रीफ्यूगल वेट गैस कंप्रेसर (FCC यूनिट)",
+        normal: [
+            { label: "सक्शन मास फ्लो", val: "54,000 kg/h वेट हाइड्रोकार्बन गैस" },
+            { label: "डिस्चार्ज प्रेशर", val: "14.8 bar गेज" },
+            { label: "टर्बाइन गवर्नर गति", val: "6,800 RPM (रेटेड: 7,200 RPM)" },
+            { label: "सील ऑयल डेल्टा-P", val: "रेफरेंस गैस चैंबर से 1.4 bar ऊपर" }
+        ],
+        deviations: [
+            { label: "एंटी-सर्ज रीसायकल वाल्व", val: "डीसॉल्टर फीड स्विंग को बफर करने के लिए बायस +8% खोला गया" },
+            { label: "सक्शन ड्रम KO स्तर", val: "बूट स्तर बढ़कर 68% हुआ (ऑटो ड्रेन वाल्व मैनुअल संचालित किया)" },
+            { label: "सर्ज मार्जिन बफर", val: "वर्तमान में 12% पर (परिचालन सीमा: >10%)" }
+        ],
+        observations: [
+            { label: "डिस्चार्ज प्रेशर उतार-चढ़ाव", val: "हाई-स्पीड ट्रेंड पर ±0.3 bar प्रेशर फ्लटर देखा गया" },
+            { label: "रेडियल कंपन", val: "ड्राइव एंड कंपन: 2.8 mm/s; नॉन-ड्राइव एंड: 3.2 mm/s (स्थिर)" },
+            { label: "इंटरस्टेज कूलर तापमान", val: "आउटलेट तापमान 44°C पर (सामान्य)" }
+        ],
+        actions: [
+            { label: "मैनुअल KO बूट ड्रेन", val: "लिक्विड स्लगिंग जोखिम समाप्त करने के लिए सक्शन ड्रम ड्रेन वाल्व चलाया" },
+            { label: "गवर्नर कैलिब्रेशन जांच", val: "स्पीड ट्रांसमीटर रिडंडेंसी सही पाई गई" },
+            { label: "FCC समन्वय", val: "अपस्ट्रीम फीड स्विंग से पहले सूचित करने के लिए FCC बोर्ड इंजीनियर को निर्देश दिया" }
+        ],
+        watchpoints: [
+            { label: "सर्ज लाइन निकटता", val: "सर्ज मार्जिन पर नजर रखें: यदि अपस्ट्रीम प्रवाह >10% गिरता है, तो रीसायकल लूप तुरंत +15% खोलें" },
+            { label: "लिक्विड कैरीओवर खतरा", val: "इम्पेलर में लिक्विड ड्रॉपलेट जाने से रोकने के लिए हर 30 मिनट में KO ड्रम बूट स्तर जांचें" },
+            { label: "API 670 ट्रिप सीमा", val: "10 सेकंड के भीतर 3 सर्ज दोलन होने पर ऑटोमैटिक शटडाउन होगा" }
+        ],
+        graphFocusId: 3
+    },
+    pipeline: {
+        assetName: "PL-400 24-इंच इंटरस्टेट क्रूड सप्लाई पाइपलाइन (500 किमी)",
+        normal: [
+            { label: "लाइन ऑपरेटिंग प्रेशर", val: "68 bar (MAOP 80 bar का 85%)" },
+            { label: "प्रवाह वेग (Velocity)", val: "1.8 m/s निरंतर क्रूड ट्रांसमिशन" },
+            { label: "कैथोडिक सुरक्षा", val: "-0.85 V बनाम Cu/CuSO4 संदर्भ इलेक्ट्रोड" },
+            { label: "मध्यवर्ती स्टेशन प्रवाह", val: "बूस्टर स्टेशन 1 से 4 तक संतुलित" }
+        ],
+        deviations: [
+            { label: "ऑपरेटिंग प्रेशर डी-रेट", val: "असंगति मूल्यांकन तक 74 bar से घटाकर 68 bar किया गया" },
+            { label: "प्रेशर ट्रांसमीटर 12", val: "0.4 bar ट्रांसमीटर ऑफसेट के कारण डुअल सेंसर एवरेजिंग चालू" }
+        ],
+        observations: [
+            { label: "स्मार्ट पिग असंगति ध्वज", val: "इन-लाइन निरीक्षण (ILI) रिपोर्ट में MP 142.6 पर 80% वाल लॉस पिट चिन्हित" },
+            { label: "मृदा प्रतिरोधकता जांच", val: "बाहरी मृदा सर्वेक्षण में स्थानीय कोटिंग अलगाव क्षेत्र देखा गया" }
+        ],
+        actions: [
+            { label: "ASME B31G मूल्यांकन", val: "सुरक्षित परिचालन दबाव: 69.4 bar आकलित (वर्तमान में सुरक्षित 68 bar पर चालू)" },
+            { label: "उत्खनन सूचना जारी", val: "टाइप-B प्रेशर स्लीव मरम्मत के लिए फील्ड NDT टीम तैनात की गई" },
+            { label: "गश्त आवृत्ति बढ़ाई", val: "माइलपोस्ट 140-145 पर हवाई और पैदल गश्त आवृत्ति दोगुनी की" }
+        ],
+        watchpoints: [
+            { label: "दबाव सीमा (BOUNDARY)", val: "पंप शुरू करते समय 70 bar से अधिक के प्रेशर स्पाइक्स पर सख्त रोक" },
+            { label: "मरम्मत उत्खनन", val: "मैनुअल खुदाई पाइप क्राउन तक पहुंचने पर फील्ड से वायरलेस पुष्टि अनिवार्य" },
+            { label: "OISD-141 अनुपालन", val: "SCADA कंसोल पर रीयल-टाइम लीक डिटेक्शन मॉनिटरिंग सक्रिय" }
+        ],
+        graphFocusId: 4
+    }
+};
+
+const VOICE_DEBRIEFS_HI = {
+    pump: {
+        durationSec: 28,
+        durationStr: "00:28",
+        transcript: "कुणाल, P-101 पर त्वरित ब्रीफिंग। लगभग 11:30 बजे सक्शन नोजल पर हल्की बजरी जैसी चरमराहट देखी गई और कंपन बढ़कर 4.6 mm/s हो गया। घबराकर पंप बंद मत करना—हमने बेयरिंग हाउसिंग तापमान जांचा है और यह 52°C पर पूरी तरह सामान्य है। यह थर्मल वेपर कैविटेशन है क्योंकि आज सक्शन तरल लगभग 4°C अधिक गर्म था। हमने अपस्ट्रीम सक्शन ड्रम स्तर 1.2 मीटर बढ़ाया और डिस्चार्ज को 8% थ्रॉटल किया। निगरानी बिंदु: सक्शन तरल तापमान सख्ती से 82°C से नीचे रखें। यदि कंपन 6.5 mm/s को पार करता है, तो तुरंत स्टैंडबाय पंप P-101B चालू करें।",
+        entities: [
+            { cls: "pill-asset", icon: "fa-industry", text: "उपकरण: P-101 सेंट्रीफ्यूगल पंप" },
+            { cls: "pill-cue", icon: "fa-ear-listen", text: "ध्वनि संकेत: सक्शन पर बजरी जैसी चरमराहट" },
+            { cls: "pill-param", icon: "fa-wave-square", text: "सेंसर: 4.6 mm/s कंपन (चेतावनी)" },
+            { cls: "pill-check", icon: "fa-stethoscope", text: "जांच: 52°C बेयरिंग तापमान (सीजर खारिज)" },
+            { cls: "pill-hypo", icon: "fa-code-branch", text: "निदान: थर्मल NPSH वेपर कैविटेशन" },
+            { cls: "pill-boundary", icon: "fa-triangle-exclamation", text: "सीमा: तापमान < 82°C | ट्रिप कटओवर > 6.5 mm/s" }
+        ]
+    },
+    column: {
+        durationSec: 26,
+        durationStr: "00:26",
+        transcript: "शिफ्ट B टीम, एटमॉस्फेरिक कॉलम C-201 पर ध्यान दें। 10:00 बजे क्रूड बदलने के बाद टॉप डिफरेंशियल प्रेशर 395 mmWC तक पहुंच गया। रीबॉयलर फायरिंग कम न करें—रिफ्लक्स 42°C पर सब-कूल्ड था, जिससे डाउनकमर चोकिंग हुई, न कि रीबॉयलर फोमिंग। हमने टॉप रिफ्लक्स प्रवाह 145 से घटाकर 125 m³/h किया है। निगरानी बिंदु: टॉप DP पर पैनी नजर रखें; यदि यह 430 mmWC छूता है, तो रिफ्लक्स 5 m³/h और घटाएं। यदि कॉलम प्रेशर 2.8 kg/cm² पहुंचता है, तो तुरंत फ्लेयर डाइवर्जन करें।",
+        entities: [
+            { cls: "pill-asset", icon: "fa-industry", text: "उपकरण: C-201 डिस्टिलेशन कॉलम" },
+            { cls: "pill-cue", icon: "fa-wave-square", text: "संकेत: ओवरहेड DP स्पाइक (395 mmWC)" },
+            { cls: "pill-param", icon: "fa-temperature-low", text: "सेंसर: रिफ्लक्स 42°C पर सब-कूल्ड" },
+            { cls: "pill-check", icon: "fa-stethoscope", text: "जांच: ट्रे तापमान स्थिर (फोमिंग खारिज)" },
+            { cls: "pill-hypo", icon: "fa-code-branch", text: "निदान: डाउनकमर हाइड्रोलिक जेट फ्लडिंग" },
+            { cls: "pill-boundary", icon: "fa-triangle-exclamation", text: "सीमा: DP < 430 mmWC | फ्लेयर 2.8 kg/cm²" }
+        ]
+    },
+    compressor: {
+        durationSec: 25,
+        durationStr: "00:25",
+        transcript: "कंट्रोल रूम लीड, वेट गैस कंप्रेसर K-301 पर नोट करें। अपस्ट्रीम FCC फीड स्विंग होने पर सक्शन मास फ्लो 22% गिरा। एंटी-सर्ज मार्जिन घटकर 12% रह गया। हमने तुरंत एंटी-सर्ज हॉट गैस बाईपास 15% खोला और टर्बाइन गति संतुलित की। मशीन को ट्रिप न करें—फॉरवर्ड फ्लो अब स्थिर है। निगरानी बिंदु: सर्ज मार्जिन 15% से ऊपर रखें और लिक्विड कैरीओवर से बचाव के लिए हर 30 मिनट में नॉकआउट ड्रम बूट स्तर जांचें।",
+        entities: [
+            { cls: "pill-asset", icon: "fa-industry", text: "उपकरण: K-301 वेट गैस कंप्रेसर" },
+            { cls: "pill-cue", icon: "fa-gauge-high", text: "संकेत: एंटी-सर्ज मार्जिन 12% तक गिरा" },
+            { cls: "pill-param", icon: "fa-wind", text: "सेंसर: सक्शन मास फ्लो -22% गिरा" },
+            { cls: "pill-check", icon: "fa-stethoscope", text: "जांच: शाफ्ट कंपन 28 µm पर स्थिर" },
+            { cls: "pill-hypo", icon: "fa-code-branch", text: "निदान: फीड कमी से सर्ज की संभावना" },
+            { cls: "pill-boundary", icon: "fa-triangle-exclamation", text: "सीमा: मार्जिन > 15% | API 670 3-सर्ज ट्रिप" }
+        ]
+    },
+    pipeline: {
+        durationSec: 27,
+        durationStr: "00:27",
+        transcript: "पाइपलाइन प्रेषण, क्रूड ट्रंकलाइन PL-400 पर ब्रीफिंग। इंटेलिजेंट पिगिंग इनलाइन इंस्पेक्शन ने 80% वाल लॉस विसंगति (किलोमीटर 142 पर 9.6mm बाहरी जंग) चिन्हित की है। ASME B31G गणना के आधार पर, हमने सुरक्षित परिचालन के लिए दबाव 68 bar तक सीमित कर दिया है ताकि स्लीव मरम्मत टीम आने तक आपूर्ति जारी रहे। निगरानी बिंदु: बूस्टर पंप शुरू करते समय 70 bar से ऊपर प्रेशर स्पाइक न होने दें, और SCADA लीक डिटेक्शन सक्रिय रखें।",
+        entities: [
+            { cls: "pill-asset", icon: "fa-industry", text: "उपकरण: PL-400 24-इंच क्रूड ट्रंकलाइन" },
+            { cls: "pill-cue", icon: "fa-magnifying-glass-chart", text: "संकेत: स्मार्ट पिग ILI विसंगति (80% वाल लॉस)" },
+            { cls: "pill-param", icon: "fa-gauge-simple-high", text: "सेंसर: ऑपरेटिंग दबाव 68 bar तक सीमित" },
+            { cls: "pill-check", icon: "fa-stethoscope", text: "जांच: ASME B31G सुरक्षित परिचालन मान्य" },
+            { cls: "pill-hypo", icon: "fa-code-branch", text: "निदान: बाहरी कोटिंग क्षति व पिटिंग" },
+            { cls: "pill-boundary", icon: "fa-triangle-exclamation", text: "सीमा: दबाव < 70 bar | OISD-141 निगरानी" }
+        ]
+    }
+};
+
+const COMPREHENSION_QUIZZES_HI = {
+    pump: {
+        question: "शिफ्ट A ने दर्ज किया कि पंप P-101 में बजरी जैसी चरमराहट सुनाई दी और कंपन 4.6 mm/s तक बढ़ गया। शिफ्ट A ने मैकेनिकल बेयरिंग ओवरहॉल के लिए पंप को बाहर निकालने का निर्णय क्यों स्थगित किया?",
+        options: [
+            { text: "बेयरिंग हाउसिंग का तापमान 52°C पर सामान्य था (75°C विफलता सीमा से काफी नीचे), जिससे सिद्ध हुआ कि यह थर्मल वेपर कैविटेशन था, बेयरिंग सीजर नहीं।", correct: true },
+            { text: "स्टैंडबाय पंप P-101B वार्षिक ओवरहॉल के लिए अलग किया गया था।", correct: false },
+            { text: "शिफ्ट इंजीनियर शिफ्ट खत्म होने से पहले मेंटेनेंस को सूचित करना भूल गया।", correct: false }
+        ],
+        watchpoints: [
+            "NPSH वेपर प्रेशर सीमा: सक्शन तरल तापमान (+4°C बढ़ा हुआ) सख्ती से 82°C से नीचे रहना चाहिए।",
+            "सक्रिय अनिर्णीत परिकल्पना: सक्शन स्ट्रेनर का आंशिक अवरोध बनाम थर्मल वेपर बबल निर्माण।",
+            "OISD-119 एस्केलेशन सीमा: यदि कंपन 6.5 mm/s से अधिक हो, तो स्टैंडबाय पंप P-101B तुरंत चालू करें।"
+        ]
+    },
+    column: {
+        question: "कॉलम C-201 का टॉप डिफरेंशियल प्रेशर (DP) बढ़कर 395 mmWC हो गया। शिफ्ट A ने रीबॉयलर फर्नेस हीट ड्यूटी में कटौती क्यों नहीं की?",
+        options: [
+            { text: "फोमिंग/फ्लडिंग के दौरान रीबॉयलर हीट काटने से 40 ट्रे का तरल हाइड्रोकार्बन कॉलम बॉटम बूट में डंप हो सकता है।", correct: true },
+            { text: "फर्नेस फ्यूल गैस कंट्रोल वाल्व 100% खुला अटक गया था।", correct: false },
+            { text: "DCS रीबॉयलर तापमान सेंसर कैलिब्रेशन से बाहर था।", correct: false }
+        ],
+        watchpoints: [
+            "हाइड्रोलिक चोक: ओवरहेड DP पर नजर रखें; यदि DP 430 mmWC तक पहुंचता है, तो डाउनकमर भर जाएंगे।",
+            "रिफ्लक्स डी-एस्केलेशन: आने वाले लीड को रिफ्लक्स प्रवाह 5 m³/h के चरणों में 125 m³/h की ओर ट्रिम करना चाहिए।",
+            "OISD-108 सुरक्षा सीमा: यदि कॉलम दबाव 2.8 kg/cm² पहुंचता है, तो तत्काल फ्लेयर डाइवर्जन निष्पादित करें।"
+        ]
+    },
+    compressor: {
+        question: "कंप्रेसर K-301 पर एंटी-सर्ज मार्जिन घटकर 12% रह गया। मशीन ट्रिप करने से पहले सही प्रतिक्रिया क्या है?",
+        options: [
+            { text: "एंटी-सर्ज हॉट गैस रीसायकल लूप +15% खोलें और फॉरवर्ड फ्लो बनाए रखने के लिए टर्बाइन गति धीरे-धीरे संतुलित करें।", correct: true },
+            { text: "पूरी FCC को बंद करने के लिए तुरंत मैनुअल इमरजेंसी ट्रिप पुश बटन दबाएं।", correct: false },
+            { text: "कंप्रेसर डिस्चार्ज आइसोलेशन वाल्व को ब्लॉक करें।", correct: false }
+        ],
+        watchpoints: [
+            "सर्ज मार्जिन निकटता: यदि फीड प्रवाह >10% गिरता है, तो रीसायकल लूप तुरंत +15% खोलें।",
+            "लिक्विड स्लग जोखिम: इम्पेलर्स की सुरक्षा के लिए हर 30 मिनट में सक्शन KO ड्रम बूट स्तर जांचें।",
+            "API 670 थ्रेशोल्ड: 10 सेकंड के भीतर 3 तीव्र सर्ज दोलन होने पर ऑटोमैटिक सेफ्टी ट्रिप अनिवार्य है।"
+        ]
+    },
+    pipeline: {
+        question: "स्मार्ट पिग ILI ने पाइपलाइन PL-400 पर 80% वाल लॉस (9.6mm पिट) चिन्हित किया। स्लीव मरम्मत से पहले क्या निरंतर परिचालन की अनुमति देता है?",
+        options: [
+            { text: "ASME B31G अवशिष्ट शक्ति गणना के आधार पर ऑपरेटिंग दबाव को 68 bar तक डी-रेट करना।", correct: true },
+            { text: "दबी हुई पाइप पर बाहरी एपॉक्सी पेंट लगाना।", correct: false },
+            { text: "10 गुना रासायनिक खुराक पर संक्षारण अवरोधक पंप करना।", correct: false }
+        ],
+        watchpoints: [
+            "दबाव सीमा: बूस्टर पंप शुरू करने के दौरान 70 bar से अधिक के दबाव स्पाइक पर सख्त प्रतिबंध।",
+            "NDT मरम्मत टीम: जब हाथ से खुदाई पाइप क्राउन तक पहुंचे तो रेडियो पुष्टि आवश्यक है।",
+            "OISD-141 निगरानी: SCADA कंसोल पर निरंतर रिसाव पहचान निगरानी सक्रिय रखें।"
+        ]
+    }
+};
+
+const TRANSLATIONS = {
+    en: {
+        bannerTitle: '<strong>ExpertFlow:</strong> Operational Continuity & Cross-Shift Competency',
+        shiftA: '<i class="fas fa-sun"></i> Shift A (Outgoing)',
+        shiftB: '<i class="fas fa-cloud-sun"></i> Shift B (Incoming Lead)',
+        seniorBtnActive: 'Senior Mode (Active)',
+        seniorBtnInactive: 'Senior Mode (40+)',
+        demoBtn: '5-Min Demo',
+        nav: {
+            overview: 'Executive Overview',
+            handover: '1. Structured Handover',
+            graph: '2. Experience Graph',
+            scenarios: '3. Scenario Engine',
+            coach: '4. AI Experience Coach',
+            'cross-shift': '5. Cross-Shift Competency',
+            'mentor-brief': '6. 1-Page Mentor Brief'
+        },
+        secHeaders: {
+            title1: '<i class="fas fa-gauge text-accent"></i> Normal State',
+            desc1: 'Baseline Operating Parameters',
+            title2: '<i class="fas fa-arrows-split-up-and-left text-warning"></i> Deviations',
+            desc2: 'Overrides & Parameter Tweaks',
+            title3: '<i class="fas fa-eye text-purple"></i> Observations',
+            desc3: 'Acoustic, Sensory & Weak Signals',
+            title4: '<i class="fas fa-wrench text-success"></i> Actions Taken',
+            desc4: 'Adjustments & Maintenance Done',
+            title5: '<i class="fas fa-bell text-danger"></i> Watch-Points',
+            desc5: 'Critical Items for Incoming Shift'
+        },
+        units: {
+            pump: 'P-101 Booster Pump (Cavitation)',
+            column: 'C-201 Distillation (Tray Flooding)',
+            compressor: 'K-301 Wet Gas Compressor (Surge)',
+            pipeline: 'PL-400 Interstate Pipeline (Wall Loss)'
+        },
+        voice: {
+            playBtn: 'Play Verbal Debrief',
+            pauseBtn: 'Pause Verbal Debrief',
+            applyBtn: '<i class="fas fa-bolt"></i> Auto-Populate 5 Handover Sections from Audio'
+        },
+        signoff: {
+            blindBtn: '<i class="fas fa-eye-slash"></i> Test Blind Sign-Off Block',
+            traceBtn: '<i class="fas fa-project-diagram"></i> Trace Reasoning in Graph',
+            ackBtn: '<i class="fas fa-shield-halved"></i> Verify & Assume Control'
+        },
+        gate: {
+            modalTitle: 'Active Handover Comprehension Gate',
+            modalSub: 'Assuming operational control of Unit requires verified situational awareness. Blind sign-offs are strictly forbidden.',
+            dwellTitle: 'Review Dwell-Time Compliance:',
+            part1Title: '<i class="fas fa-list-check text-warning"></i> Part 1: Itemized Affirmation of Shift A Watch-Points (Mandatory)',
+            part1Helper: 'You must explicitly review and affirm each active operational constraint logged by Shift A:',
+            part2Title: '<i class="fas fa-brain text-accent"></i> Part 2: Socratic Cognitive Verification Probe',
+            part2Helper: 'Generated from Shift A\'s specific input: Prove that you read the diagnostic rationale before assuming control.',
+            part3Title: '<i class="fas fa-shield-halved text-success"></i> Part 3: Dual-Presence Biometric Verification (OISD-166 & IEC 62443)',
+            part3Helper: 'Air-gapped on-premise verification against official refinery HR onboarding records. Mandatory physical co-presence of both Shift In-Charges at CCR Console.',
+            cancelBtn: 'Cancel & Re-read Log',
+            confirmBtn: '<i class="fas fa-signature"></i> Affirm & Seal Handover'
+        }
+    },
+    hi: {
+        bannerTitle: '<strong>ExpertFlow:</strong> परिचालन निरंतरता एवं क्रॉस-शिफ्ट दक्षता',
+        shiftA: '<i class="fas fa-sun"></i> शिफ्ट A (आउटगोइंग)',
+        shiftB: '<i class="fas fa-cloud-sun"></i> शिफ्ट B (इनकमिंग लीड)',
+        seniorBtnActive: 'सीनियर मोड (सक्रिय)',
+        seniorBtnInactive: 'सीनियर मोड (40+)',
+        demoBtn: '5-मिनट डेमो',
+        nav: {
+            overview: 'कार्यकारी अवलोकन (Overview)',
+            handover: '1. संरचित हैंडओवर (Handover)',
+            graph: '2. अनुभव ग्राफ (Experience Graph)',
+            scenarios: '3. परिदृश्य सिम्युलेटर (Scenarios)',
+            coach: '4. एआई अनुभव कोच (AI Coach)',
+            'cross-shift': '5. क्रॉस-शिफ्ट दक्षता (Competency)',
+            'mentor-brief': '6. 1-पेज मेंटर ब्रीफ (Mentor Brief)'
+        },
+        secHeaders: {
+            title1: '<i class="fas fa-gauge text-accent"></i> खंड 1: सामान्य परिचालन आधार रेखा',
+            desc1: 'दबाव, तापमान, प्रवाह दर, वाल्व स्थिति',
+            title2: '<i class="fas fa-arrows-split-up-and-left text-warning"></i> खंड 2: परिचालन विचलन',
+            desc2: 'प्रक्रियात्मक ओवरराइड, बाईपास, मैनुअल बायस',
+            title3: '<i class="fas fa-eye text-purple"></i> खंड 3: सूक्ष्म संकेत व प्रेक्षण',
+            desc3: 'ध्वनि, कंपन, थर्मल और दृष्टिगोचर संकेत',
+            title4: '<i class="fas fa-wrench text-success"></i> खंड 4: की गई कार्रवाइयां व कारण',
+            desc4: 'किए गए अंतरिम समायोजन और तकनीकी कारण',
+            title5: '<i class="fas fa-bell text-danger"></i> खंड 5: अनिर्णीत निगरानी बिंदु',
+            desc5: 'सुरक्षा सीमाएं, ट्रिप लिमिट और विफलता थ्रेशोल्ड'
+        },
+        units: {
+            pump: 'P-101 बूस्टर पंप (कैविटेशन)',
+            column: 'C-201 डिस्टिलेशन (ट्रे फ्लडिंग)',
+            compressor: 'K-301 वेट गैस कंप्रेसर (सर्ज)',
+            pipeline: 'PL-400 इंटरस्टेट पाइपलाइन (वाल लॉस)'
+        },
+        voice: {
+            playBtn: 'मौखिक ब्रीफिंग सुनें',
+            pauseBtn: 'मौखिक ब्रीफिंग रोकें',
+            applyBtn: '<i class="fas fa-bolt"></i> ऑडियो से सीधे 5 खंड स्वतः भरें (बिना टाइप किए)'
+        },
+        signoff: {
+            blindBtn: '<i class="fas fa-eye-slash"></i> अंधाधुंध हस्ताक्षर अवरोध परीक्षण',
+            traceBtn: '<i class="fas fa-project-diagram"></i> ग्राफ में तर्क श्रृंखला देखें',
+            ackBtn: '<i class="fas fa-shield-halved"></i> सत्यापित करें व प्रभार ग्रहण करें'
+        },
+        gate: {
+            modalTitle: 'सक्रिय हैंडओवर समझ सत्यापन गेट (OISD-166)',
+            modalSub: 'इकाई का परिचालन प्रभार लेने के लिए सिद्ध स्थिति-बोध अनिवार्य है। अंधाधुंध हस्ताक्षर पर पूर्ण प्रतिबंध है।',
+            dwellTitle: 'समीक्षा ध्यान-अवधि अनुपालन:',
+            part1Title: '<i class="fas fa-list-check text-warning"></i> भाग 1: शिफ्ट A के निगरानी बिंदुओं की पुष्टि (अनिवार्य)',
+            part1Helper: 'शिफ्ट A द्वारा दर्ज की गई प्रत्येक सक्रिय परिचालन सीमा की स्पष्ट रूप से पुष्टि करें:',
+            part2Title: '<i class="fas fa-brain text-accent"></i> भाग 2: सुकराती संज्ञानात्मक सत्यापन प्रश्न (Socratic Probe)',
+            part2Helper: 'शिफ्ट A के विशिष्ट इनपुट से उत्पन्न: प्रभार लेने से पहले सिद्ध करें कि आपने नैदानिक तर्क पढ़ा है।',
+            part3Title: '<i class="fas fa-shield-halved text-success"></i> भाग 3: दोहरी उपस्थिति बायोमेट्रिक सत्यापन (Dual-Presence)',
+            part3Helper: 'रिफाइनरी एचआर रिकॉर्ड से स्थानीय मिलान। सीसीआर कंसोल पर दोनों शिफ्ट प्रभारियों की भौतिक उपस्थिति अनिवार्य है।',
+            cancelBtn: 'रद्द करें व लॉग पुनः पढ़ें',
+            confirmBtn: '<i class="fas fa-signature"></i> सत्यापित करें व हैंडओवर सील करें'
+        }
+    }
+};
 
 function initNavigation() {
     const navItems = document.querySelectorAll('.nav-item');
@@ -513,9 +866,11 @@ function switchUnitPreset(key) {
 }
 
 function renderHandoverCanvas(key) {
-    const data = HANDOVER_DATA[key];
+    const isHindi = appState.language === 'hi';
+    const dataSource = isHindi ? HANDOVER_DATA_HI : HANDOVER_DATA;
+    const data = dataSource[key] || HANDOVER_DATA[key];
     const assetEl = document.getElementById('handoverTargetAsset');
-    if (assetEl) assetEl.innerText = `Asset: ${data.assetName}`;
+    if (assetEl) assetEl.innerText = `${isHindi ? 'संयंत्र उपकरण' : 'Asset'}: ${data.assetName}`;
 
     // Render Normal
     const normEl = document.getElementById('secContentNormal');
@@ -722,19 +1077,26 @@ function initVoiceDebrief() {
 
 function updateVoiceDebriefForUnit(unitKey) {
     stopVoiceDebrief();
-    const data = VOICE_DEBRIEFS[unitKey] || VOICE_DEBRIEFS.pump;
+    const isHindi = appState.language === 'hi';
+    const dataSource = isHindi ? VOICE_DEBRIEFS_HI : VOICE_DEBRIEFS;
+    const fallbackData = VOICE_DEBRIEFS[unitKey] || VOICE_DEBRIEFS.pump;
+    const data = dataSource[unitKey] || fallbackData;
 
     const transcriptEl = document.getElementById('voiceTranscriptText');
     if (transcriptEl) transcriptEl.innerText = `"${data.transcript}"`;
 
     const totalTimeEl = document.getElementById('voiceTotalTime');
-    if (totalTimeEl) totalTimeEl.innerText = data.durationStr;
+    if (totalTimeEl) totalTimeEl.innerText = data.durationStr || fallbackData.durationStr;
 
     const currTimeEl = document.getElementById('voiceCurrentTime');
     if (currTimeEl) currTimeEl.innerText = "00:00";
 
     const statusPill = document.getElementById('voiceStatusPill');
-    if (statusPill) statusPill.innerHTML = `<i class="fas fa-volume-high text-success"></i> Audio Ready (${data.durationStr})`;
+    if (statusPill) {
+        statusPill.innerHTML = isHindi 
+            ? `<i class="fas fa-volume-high text-success"></i> ऑडियो तैयार (${data.durationStr || fallbackData.durationStr})`
+            : `<i class="fas fa-volume-high text-success"></i> Audio Ready (${data.durationStr || fallbackData.durationStr})`;
+    }
 
     const pillsContainer = document.getElementById('voiceEntityPills');
     if (pillsContainer) {
@@ -746,7 +1108,10 @@ function updateVoiceDebriefForUnit(unitKey) {
 
 function playVoiceDebrief() {
     const unitKey = appState.activeUnitKey;
-    const data = VOICE_DEBRIEFS[unitKey] || VOICE_DEBRIEFS.pump;
+    const isHindi = appState.language === 'hi';
+    const dataSource = isHindi ? VOICE_DEBRIEFS_HI : VOICE_DEBRIEFS;
+    const fallbackData = VOICE_DEBRIEFS[unitKey] || VOICE_DEBRIEFS.pump;
+    const data = dataSource[unitKey] || fallbackData;
 
     voiceState.isPlaying = true;
     voiceState.currentSec = 0;
@@ -760,7 +1125,7 @@ function playVoiceDebrief() {
 
     if (btnPlay) btnPlay.classList.add('playing');
     if (playIcon) playIcon.className = 'fas fa-pause';
-    if (playText) playText.innerText = 'Pause Verbal Debrief';
+    if (playText) playText.innerText = isHindi ? 'मौखिक ब्रीफिंग रोकें' : 'Pause Verbal Debrief';
     if (btnStop) btnStop.style.display = 'inline-flex';
     if (waveform) waveform.classList.add('active');
 
@@ -772,8 +1137,15 @@ function playVoiceDebrief() {
         utter.pitch = 0.95;
 
         const voices = window.speechSynthesis.getVoices();
-        const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('David') || v.name.includes('George') || v.name.includes('Natural') || v.name.includes('Male')));
-        if (preferred) utter.voice = preferred;
+        if (isHindi) {
+            const preferredHi = voices.find(v => (v.lang && (v.lang.startsWith('hi') || v.lang.includes('IN'))));
+            if (preferredHi) utter.voice = preferredHi;
+            utter.lang = 'hi-IN';
+        } else {
+            const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('David') || v.name.includes('George') || v.name.includes('Natural') || v.name.includes('Male')));
+            if (preferred) utter.voice = preferred;
+            utter.lang = 'en-US';
+        }
 
         utter.onend = () => {
             stopVoiceDebrief();
@@ -788,7 +1160,8 @@ function playVoiceDebrief() {
 
     // Timer simulation
     clearInterval(voiceState.timerInterval);
-    const totalDuration = data.durationSec / voiceState.speed;
+    const durationSec = data.durationSec || fallbackData.durationSec || 28;
+    const totalDuration = durationSec / voiceState.speed;
     voiceState.timerInterval = setInterval(() => {
         voiceState.currentSec += 1;
         const curM = String(Math.floor(voiceState.currentSec / 60)).padStart(2, '0');
@@ -1154,7 +1527,10 @@ function openComprehensionGateModal(isTestBlind = false) {
     if (!overlay) return;
 
     const unitKey = appState.activeUnitKey;
-    const quizData = COMPREHENSION_QUIZZES[unitKey] || COMPREHENSION_QUIZZES.pump;
+    const isHindi = appState.language === 'hi';
+    const quizSource = isHindi ? COMPREHENSION_QUIZZES_HI : COMPREHENSION_QUIZZES;
+    const fallbackQuiz = COMPREHENSION_QUIZZES[unitKey] || COMPREHENSION_QUIZZES.pump;
+    const quizData = quizSource[unitKey] || fallbackQuiz;
 
     // Reset state
     comprehensionState.quizAnsweredCorrectly = false;
@@ -1168,13 +1544,18 @@ function openComprehensionGateModal(isTestBlind = false) {
     const chk2 = document.getElementById('chkWatchpoint2');
     const chk3 = document.getElementById('chkWatchpoint3');
 
-    if (chk1 && chk1.nextElementSibling) chk1.nextElementSibling.innerHTML = `<strong>Operational Boundary:</strong> ${quizData.watchpoints[0]}`;
-    if (chk2 && chk2.nextElementSibling) chk2.nextElementSibling.innerHTML = `<strong>Surveillance Hypothesis:</strong> ${quizData.watchpoints[1]}`;
-    if (chk3 && chk3.nextElementSibling) chk3.nextElementSibling.innerHTML = `<strong>Escalation Threshold:</strong> ${quizData.watchpoints[2]}`;
+    const prefix1 = isHindi ? 'परिचालन सीमा' : 'Operational Boundary';
+    const prefix2 = isHindi ? 'निगरानी परिकल्पना' : 'Surveillance Hypothesis';
+    const prefix3 = isHindi ? 'एस्केलेशन थ्रेशोल्ड' : 'Escalation Threshold';
+
+    if (chk1 && chk1.nextElementSibling) chk1.nextElementSibling.innerHTML = `<strong>${prefix1}:</strong> ${quizData.watchpoints[0]}`;
+    if (chk2 && chk2.nextElementSibling) chk2.nextElementSibling.innerHTML = `<strong>${prefix2}:</strong> ${quizData.watchpoints[1]}`;
+    if (chk3 && chk3.nextElementSibling) chk3.nextElementSibling.innerHTML = `<strong>${prefix3}:</strong> ${quizData.watchpoints[2]}`;
 
     // Populate Quiz Question
     const qText = document.getElementById('quizQuestionText');
-    if (qText) qText.innerHTML = `<strong>Diagnostic Comprehension Probe:</strong> ${quizData.question}`;
+    const probeTitle = isHindi ? 'नैदानिक समझ सत्यापन' : 'Diagnostic Comprehension Probe';
+    if (qText) qText.innerHTML = `<strong>${probeTitle}:</strong> ${quizData.question}`;
 
     const optsContainer = document.getElementById('quizOptionsList');
     if (optsContainer) {
@@ -1194,13 +1575,19 @@ function openComprehensionGateModal(isTestBlind = false) {
     overlay.style.display = 'flex';
 
     if (isTestBlind) {
-        showToast('SIMULATED BLIND SIGN-OFF: Notice how the system intercepts Shift B and demands cognitive verification!', 'warning');
+        showToast(
+            isHindi 
+                ? 'सिम्युलेटेड अंधाधुंध हस्ताक्षर: देखें कैसे सिस्टम ने शिफ्ट B को रोका और समझ सत्यापन की मांग की!'
+                : 'SIMULATED BLIND SIGN-OFF: Notice how the system intercepts Shift B and demands cognitive verification!', 
+            'warning'
+        );
     }
 }
 
 function handleQuizOptionClick(optIdx, isCorrect) {
     const buttons = document.querySelectorAll('.quiz-opt-btn');
     const fbBox = document.getElementById('quizFeedbackBox');
+    const isHindi = appState.language === 'hi';
 
     buttons.forEach((btn, idx) => {
         btn.classList.remove('selected-correct', 'selected-incorrect');
@@ -1215,10 +1602,14 @@ function handleQuizOptionClick(optIdx, isCorrect) {
         fbBox.style.display = 'block';
         if (isCorrect) {
             fbBox.className = 'quiz-feedback ok';
-            fbBox.innerHTML = '<strong><i class="fas fa-check-circle"></i> Cognitive Check Passed:</strong> Correct! You verified Shift A\'s diagnostic rationale. Complete the watch-point affirmations below to seal handover.';
+            fbBox.innerHTML = isHindi 
+                ? '<strong><i class="fas fa-check-circle"></i> संज्ञानात्मक जांच उत्तीर्ण:</strong> सही! आपने शिफ्ट A के नैदानिक तर्क को सत्यापित कर दिया है। हैंडओवर सील करने के लिए नीचे दिए गए तीनों निगरानी बिंदुओं की पुष्टि करें।'
+                : '<strong><i class="fas fa-check-circle"></i> Cognitive Check Passed:</strong> Correct! You verified Shift A\'s diagnostic rationale. Complete the watch-point affirmations below to seal handover.';
         } else {
             fbBox.className = 'quiz-feedback err';
-            fbBox.innerHTML = '<strong><i class="fas fa-triangle-exclamation"></i> Blind Sign-off Intercepted:</strong> Incorrect! Your answer indicates you did not review Shift A\'s diagnostic checks. Review Section 3 & Section 4 in the handover canvas.';
+            fbBox.innerHTML = isHindi
+                ? '<strong><i class="fas fa-triangle-exclamation"></i> अंधाधुंध हस्ताक्षर अवरोधित:</strong> गलत उत्तर! इससे स्पष्ट होता है कि आपने शिफ्ट A के नैदानिक प्रेक्षणों की समीक्षा नहीं की। कृपया खंड 3 और 4 की पुनर्समीक्षा करें।'
+                : '<strong><i class="fas fa-triangle-exclamation"></i> Blind Sign-off Intercepted:</strong> Incorrect! Your answer indicates you did not review Shift A\'s diagnostic checks. Review Section 3 & Section 4 in the handover canvas.';
         }
     }
 
@@ -2098,10 +2489,289 @@ function showDemoStep(stepIdx) {
 }
 
 // ==========================================================================
+// 9.5 40+ SENIOR OPERATOR ACCESSIBILITY & BILINGUAL ENGINE
+// ==========================================================================
+
+let currentFontScaleIndex = 1; // 0: 13.5px, 1: 15px (Normal), 2: 17px, 3: 19px
+const FONT_SCALES = [
+    { size: '13.5px', label: 'sm' },
+    { size: '15px',   label: 'md' },
+    { size: '17px',   label: 'lg' },
+    { size: '19px',   label: 'xl' }
+];
+
+function initAccessibilityControls() {
+    const btnSenior = document.getElementById('btnToggleSeniorMode');
+    const btnDecr = document.getElementById('btnFontDecr');
+    const btnReset = document.getElementById('btnFontReset');
+    const btnIncr = document.getElementById('btnFontIncr');
+    const btnLangEN = document.getElementById('btnLangEN');
+    const btnLangHI = document.getElementById('btnLangHI');
+
+    // Load saved preferences if available
+    const savedSenior = localStorage.getItem('expertflow_seniormode');
+    if (savedSenior === 'true') {
+        setSeniorOperatorMode(true, true);
+    }
+
+    const savedFontScale = localStorage.getItem('expertflow_fontscale');
+    if (savedFontScale !== null) {
+        applyFontScaleIndex(parseInt(savedFontScale, 10));
+    }
+
+    const savedLang = localStorage.getItem('expertflow_lang') || 'en';
+    if (savedLang === 'hi') {
+        setLanguage('hi', true);
+    }
+
+    if (btnSenior) {
+        btnSenior.addEventListener('click', () => {
+            const isSenior = !document.body.classList.contains('senior-operator-mode');
+            setSeniorOperatorMode(isSenior);
+        });
+    }
+
+    if (btnDecr) {
+        btnDecr.addEventListener('click', () => {
+            adjustFontScale(-1);
+        });
+    }
+    if (btnReset) {
+        btnReset.addEventListener('click', () => {
+            applyFontScaleIndex(1);
+            showToast(appState.language === 'hi' ? 'फॉन्ट आकार रीसेट किया गया।' : 'Font size reset to default.', 'info');
+        });
+    }
+    if (btnIncr) {
+        btnIncr.addEventListener('click', () => {
+            adjustFontScale(1);
+        });
+    }
+
+    if (btnLangEN) {
+        btnLangEN.addEventListener('click', () => {
+            setLanguage('en');
+        });
+    }
+    if (btnLangHI) {
+        btnLangHI.addEventListener('click', () => {
+            setLanguage('hi');
+        });
+    }
+}
+
+function setSeniorOperatorMode(enable, silent = false) {
+    appState.seniorMode = !!enable;
+    const btnSenior = document.getElementById('btnToggleSeniorMode');
+    const labelSenior = document.getElementById('labelSeniorMode');
+    const isHindi = appState.language === 'hi';
+
+    if (enable) {
+        document.body.classList.add('senior-operator-mode');
+        if (btnSenior) btnSenior.classList.add('active');
+        if (labelSenior) labelSenior.innerText = isHindi ? 'सीनियर मोड (सक्रिय)' : 'Senior Mode (Active)';
+        if (!silent) {
+            showToast(
+                isHindi 
+                    ? 'सीनियर ऑपरेटर मोड सक्रिय: बड़ा फॉन्ट, उच्च कंट्रास्ट, 48px+ टच-टारगेट (40+ ऑपरेटरों के लिए उपयुक्त)'
+                    : 'Senior Operator Mode (40+) ENGAGED: Enlarged fonts, ultra-high contrast & 48px+ touch targets enabled.', 
+                'info'
+            );
+        }
+    } else {
+        document.body.classList.remove('senior-operator-mode');
+        if (btnSenior) btnSenior.classList.remove('active');
+        if (labelSenior) labelSenior.innerText = isHindi ? 'सीनियर मोड (40+)' : 'Senior Mode (40+)';
+        if (!silent) {
+            showToast(
+                isHindi ? 'सामान्य डिस्प्ले मोड पर वापस आ गए।' : 'Reverted to Standard UI Mode.', 
+                'info'
+            );
+        }
+    }
+    localStorage.setItem('expertflow_seniormode', String(enable));
+}
+
+function adjustFontScale(delta) {
+    let nextIdx = currentFontScaleIndex + delta;
+    if (nextIdx < 0) nextIdx = 0;
+    if (nextIdx >= FONT_SCALES.length) nextIdx = FONT_SCALES.length - 1;
+    applyFontScaleIndex(nextIdx);
+
+    const isHindi = appState.language === 'hi';
+    const label = FONT_SCALES[nextIdx].label.toUpperCase();
+    showToast(
+        isHindi ? `फॉन्ट स्केल: ${label}` : `Font Scale adjusted: ${label}`, 
+        'info'
+    );
+}
+
+function applyFontScaleIndex(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= FONT_SCALES.length) idx = FONT_SCALES.length - 1;
+    currentFontScaleIndex = idx;
+    appState.fontScaleIndex = idx;
+
+    if (idx === 1) {
+        document.documentElement.style.fontSize = '';
+    } else {
+        document.documentElement.style.fontSize = FONT_SCALES[idx].size;
+    }
+
+    const btnDecr = document.getElementById('btnFontDecr');
+    const btnReset = document.getElementById('btnFontReset');
+    const btnIncr = document.getElementById('btnFontIncr');
+
+    if (btnReset) btnReset.classList.toggle('active', idx === 1);
+    if (btnDecr) btnDecr.classList.toggle('active', idx === 0);
+    if (btnIncr) btnIncr.classList.toggle('active', idx >= 2);
+
+    localStorage.setItem('expertflow_fontscale', String(idx));
+}
+
+function setLanguage(lang, silent = false) {
+    appState.language = lang;
+    const btnEN = document.getElementById('btnLangEN');
+    const btnHI = document.getElementById('btnLangHI');
+
+    if (btnEN) btnEN.classList.toggle('active', lang === 'en');
+    if (btnHI) btnHI.classList.toggle('active', lang === 'hi');
+
+    if (lang === 'hi') {
+        document.body.classList.add('lang-hindi');
+    } else {
+        document.body.classList.remove('lang-hindi');
+    }
+
+    applyTranslations(lang);
+
+    // Refresh dynamic components in chosen language
+    renderHandoverCanvas(appState.activeUnitKey);
+    updateVoiceDebriefForUnit(appState.activeUnitKey);
+
+    localStorage.setItem('expertflow_lang', lang);
+
+    if (!silent) {
+        showToast(
+            lang === 'hi'
+                ? 'भाषा हिन्दी में बदली गई (Bilingual Hindi Mode Active)'
+                : 'Language switched to English (Standard)',
+            'info'
+        );
+    }
+}
+
+function applyTranslations(lang) {
+    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+    // Header elements
+    const bannerTitle = document.getElementById('txtBannerTitle');
+    if (bannerTitle) bannerTitle.innerHTML = t.bannerTitle;
+
+    const shiftA = document.getElementById('txtShiftATag');
+    if (shiftA) shiftA.innerHTML = t.shiftA;
+
+    const shiftB = document.getElementById('txtShiftBTag');
+    if (shiftB) shiftB.innerHTML = t.shiftB;
+
+    const labelSenior = document.getElementById('labelSeniorMode');
+    if (labelSenior) {
+        labelSenior.innerText = appState.seniorMode ? t.seniorBtnActive : t.seniorBtnInactive;
+    }
+
+    const demoBtn = document.getElementById('txtBtnDemo');
+    if (demoBtn) demoBtn.innerText = t.demoBtn;
+
+    // Nav items
+    document.querySelectorAll('.nav-item').forEach(item => {
+        const sec = item.getAttribute('data-section');
+        const span = item.querySelector('span:not(.nav-badge)');
+        if (span && t.nav[sec]) {
+            span.innerText = t.nav[sec];
+        }
+    });
+
+    // 5 Section headers
+    const secT1 = document.getElementById('lblSecTitle1');
+    const secD1 = document.getElementById('lblSecDesc1');
+    if (secT1) secT1.innerHTML = t.secHeaders.title1;
+    if (secD1) secD1.innerText = t.secHeaders.desc1;
+
+    const secT2 = document.getElementById('lblSecTitle2');
+    const secD2 = document.getElementById('lblSecDesc2');
+    if (secT2) secT2.innerHTML = t.secHeaders.title2;
+    if (secD2) secD2.innerText = t.secHeaders.desc2;
+
+    const secT3 = document.getElementById('lblSecTitle3');
+    const secD3 = document.getElementById('lblSecDesc3');
+    if (secT3) secT3.innerHTML = t.secHeaders.title3;
+    if (secD3) secD3.innerText = t.secHeaders.desc3;
+
+    const secT4 = document.getElementById('lblSecTitle4');
+    const secD4 = document.getElementById('lblSecDesc4');
+    if (secT4) secT4.innerHTML = t.secHeaders.title4;
+    if (secD4) secD4.innerText = t.secHeaders.desc4;
+
+    const secT5 = document.getElementById('lblSecTitle5');
+    const secD5 = document.getElementById('lblSecDesc5');
+    if (secT5) secT5.innerHTML = t.secHeaders.title5;
+    if (secD5) secD5.innerText = t.secHeaders.desc5;
+
+    // Unit presets
+    const btnPump = document.getElementById('btnUnitPump');
+    if (btnPump) btnPump.innerText = t.units.pump;
+    const btnCol = document.getElementById('btnUnitColumn');
+    if (btnCol) btnCol.innerText = t.units.column;
+    const btnComp = document.getElementById('btnUnitCompressor');
+    if (btnComp) btnComp.innerText = t.units.compressor;
+    const btnPipe = document.getElementById('btnUnitPipeline');
+    if (btnPipe) btnPipe.innerText = t.units.pipeline;
+
+    // Voice debrief buttons
+    const playText = document.getElementById('voicePlayText');
+    if (playText) playText.innerText = voiceState.isPlaying ? t.voice.pauseBtn : t.voice.playBtn;
+    const applyBtn = document.getElementById('btnApplyVoiceToHandover');
+    if (applyBtn) applyBtn.innerHTML = t.voice.applyBtn;
+
+    // Signoff buttons
+    const blindBtn = document.getElementById('btnTestBlindSignOff');
+    if (blindBtn) blindBtn.innerHTML = t.signoff.blindBtn;
+    const traceBtn = document.getElementById('btnTraceReasoningFromHandover');
+    if (traceBtn) traceBtn.innerHTML = t.signoff.traceBtn;
+    const ackBtn = document.getElementById('btnAcknowledgeHandover');
+    if (ackBtn && !appState.handoverAcknowledged) ackBtn.innerHTML = t.signoff.ackBtn;
+
+    // Gate modal
+    const gateTitle = document.getElementById('gateModalHeaderTitle');
+    if (gateTitle) gateTitle.innerText = t.gate.modalTitle;
+    const gateSub = document.getElementById('gateModalHeaderSub');
+    if (gateSub) gateSub.innerText = t.gate.modalSub;
+    const dwellTitle = document.getElementById('dwellTitleText');
+    if (dwellTitle) dwellTitle.innerText = t.gate.dwellTitle;
+    const part1T = document.getElementById('gatePart1Title');
+    if (part1T) part1T.innerHTML = t.gate.part1Title;
+    const part1H = document.getElementById('gatePart1Helper');
+    if (part1H) part1H.innerText = t.gate.part1Helper;
+    const part2T = document.getElementById('gatePart2Title');
+    if (part2T) part2T.innerHTML = t.gate.part2Title;
+    const part2H = document.getElementById('gatePart2Helper');
+    if (part2H) part2H.innerText = t.gate.part2Helper;
+    const part3T = document.getElementById('gatePart3Title');
+    if (part3T) part3T.innerHTML = t.gate.part3Title;
+    const part3H = document.getElementById('gatePart3Helper');
+    if (part3H) part3H.innerText = t.gate.part3Helper;
+    const cancelBtn = document.getElementById('btnCancelGateModal');
+    if (cancelBtn) cancelBtn.innerText = t.gate.cancelBtn;
+    const confirmBtn = document.getElementById('btnConfirmActiveVerification');
+    if (confirmBtn && !appState.handoverAcknowledged) confirmBtn.innerHTML = t.gate.confirmBtn;
+}
+
+// ==========================================================================
 // 10. DOM READY BOOTSTRAP
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    initAccessibilityControls();
     initNavigation();
     initHandoverModule();
     initScenarioEngine();

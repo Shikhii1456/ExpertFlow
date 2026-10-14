@@ -157,6 +157,204 @@ body {
     gap: 10px;
 }
 
+/* Accessibility & Senior Operator Controls */
+.btn-accessibility {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-accessibility:hover, .btn-accessibility.active {
+    background: #f59e0b;
+    color: #000;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.font-sizer-group {
+    display: flex;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.font-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    transition: var(--transition);
+}
+
+.font-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.font-btn.active {
+    color: var(--accent);
+}
+
+.lang-switch-group {
+    display: flex;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, #00d4ff, #0284c7);
+    color: #040914;
+    font-weight: 800;
+}
+
+.lang-btn:hover:not(.active) {
+    color: #fff;
+    background: rgba(0, 212, 255, 0.1);
+}
+
+/* ==========================================================================
+   40+ SENIOR OPERATOR ACCESSIBILITY MODE (REVERSIBLE)
+   ========================================================================== */
+body.senior-operator-mode {
+    font-size: 16.5px;
+    --text-primary: #ffffff;
+    --text-secondary: #f1f5f9;
+    --text-muted: #cbd5e1;
+}
+
+body.senior-operator-mode .sidebar {
+    width: 290px;
+}
+
+body.senior-operator-mode .main-content {
+    margin-left: 290px;
+}
+
+body.senior-operator-mode .nav-item {
+    padding: 13px 18px;
+    font-size: 0.95rem;
+}
+
+body.senior-operator-mode .section-header-compact h1 {
+    font-size: 1.65rem;
+}
+
+body.senior-operator-mode .section-sub {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+}
+
+body.senior-operator-mode .section-box {
+    border-width: 2px;
+    background: rgba(18, 26, 48, 0.95);
+    padding: 18px;
+}
+
+body.senior-operator-mode .section-box-header h4 {
+    font-size: 1.05rem;
+}
+
+body.senior-operator-mode .sec-desc {
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+body.senior-operator-mode .sec-content {
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+body.senior-operator-mode .sec-item-label {
+    font-size: 0.78rem;
+    color: #38bdf8;
+}
+
+body.senior-operator-mode .sec-item-val {
+    font-size: 0.92rem;
+    color: #ffffff;
+}
+
+body.senior-operator-mode .btn-primary,
+body.senior-operator-mode .btn-success,
+body.senior-operator-mode .btn-secondary,
+body.senior-operator-mode .btn-accent,
+body.senior-operator-mode .btn-voice-play {
+    min-height: 48px;
+    font-size: 0.98rem;
+    padding: 12px 22px;
+    font-weight: 700;
+}
+
+body.senior-operator-mode .gate-checkbox {
+    width: 26px;
+    height: 26px;
+}
+
+body.senior-operator-mode .check-label-text {
+    font-size: 0.94rem;
+    line-height: 1.6;
+}
+
+body.senior-operator-mode .quiz-question {
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+body.senior-operator-mode .quiz-opt-btn {
+    padding: 16px 20px;
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+body.senior-operator-mode .voice-transcript-text {
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   HINDI LOCALIZATION STYLING (REVERSIBLE)
+   ========================================================================== */
+body.lang-hindi {
+    font-family: 'Noto Sans Devanagari', 'Inter', -apple-system, sans-serif;
+}
+
+body.lang-hindi .nav-item span,
+body.lang-hindi .section-box-header h4,
+body.lang-hindi .section-sub,
+body.lang-hindi .gate-section-title,
+body.lang-hindi .quiz-question,
+body.lang-hindi .check-label-text,
+body.lang-hindi .voice-transcript-text {
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+    letter-spacing: 0.2px;
+}
+
 .btn-demo-mode {
     background: linear-gradient(135deg, #00d4ff, #0284c7);
     color: #040914;
