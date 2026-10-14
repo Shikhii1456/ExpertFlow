@@ -239,6 +239,454 @@ body {
 }
 
 /* ==========================================================================
+   SIMPLE VS DETAILED VIEW SWITCHER
+   ========================================================================== */
+.view-mode-switch-group {
+    display: flex;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(0, 212, 255, 0.35);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.view-mode-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 13px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.view-mode-btn.active {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.view-mode-btn:hover:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Visibility toggling for Simple vs Detailed */
+#simpleOperatorContainer {
+    display: none;
+}
+
+body.simple-view-active #simpleOperatorContainer {
+    display: flex !important;
+}
+
+body.simple-view-active #operatorConsoleCard,
+body.simple-view-active #reviewUnitBar,
+body.simple-view-active #vagueLogComparison,
+body.simple-view-active #voiceDebriefCard,
+body.simple-view-active .handover-canvas-card,
+body.simple-view-active .handover-controls {
+    display: none !important;
+}
+
+/* ==========================================================================
+   SIMPLE OPERATOR CONSOLE STYLING (DISTRACTION-FREE)
+   ========================================================================== */
+.simple-operator-container {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.simple-unit-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(14, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 16px 24px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.simple-step-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.simple-banner-title h2 {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin: 4px 0 0 0;
+    font-weight: 700;
+}
+
+.simple-unit-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.simple-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.simple-chip:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.simple-chip.active {
+    background: rgba(0, 212, 255, 0.18);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.simple-step-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.simple-step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.simple-step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #0284c7);
+    color: #040914;
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.simple-step-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.simple-step-sub {
+    margin: 2px 0 0 0;
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
+.simple-health-pill {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.simple-health-pill.attention {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.simple-health-pill.normal {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+/* Readings Grid */
+.simple-readings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+}
+
+.simple-reading-box {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 4px solid var(--accent);
+}
+
+.simple-reading-box.warn {
+    border-left-color: #f59e0b;
+}
+
+.simple-reading-box.err {
+    border-left-color: #ef4444;
+}
+
+.reading-name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reading-val {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    font-family: var(--font-mono);
+}
+
+.reading-status {
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.reading-status.ok { color: #34d399; }
+.reading-status.warn { color: #fbbf24; }
+.reading-status.err { color: #f87171; }
+
+/* Audio Bar in Simple View */
+.simple-audio-bar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    flex-wrap: wrap;
+}
+
+.btn-simple-play {
+    background: linear-gradient(135deg, #00d4ff, #0284c7);
+    color: #040914;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 12px 24px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.btn-simple-play:hover {
+    box-shadow: 0 0 16px rgba(0, 212, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-simple-play.playing {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+}
+
+.simple-transcript-bubble {
+    flex: 1;
+    min-width: 260px;
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+}
+
+/* Watchpoints in Simple View */
+.simple-watchpoints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.simple-watchpoint-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    transition: var(--transition);
+}
+
+.simple-watchpoint-item:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.simple-watch-chk {
+    width: 22px;
+    height: 22px;
+    margin-top: 3px;
+    cursor: pointer;
+    accent-color: #10b981;
+}
+
+.simple-watch-content {
+    flex: 1;
+}
+
+.simple-watch-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.simple-watch-badge.limit { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.simple-watch-badge.active { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.simple-watch-badge.trip { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+
+.simple-watch-text {
+    font-size: 0.93rem;
+    color: #f1f5f9;
+    line-height: 1.5;
+}
+
+/* Sign-off Card in Simple View */
+.simple-signoff-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 78, 59, 0.15));
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+}
+
+.simple-signoff-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.simple-signoff-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 280px;
+}
+
+.simple-sign-icon {
+    font-size: 2.2rem;
+}
+
+.simple-signoff-left h4 {
+    margin: 0;
+    font-size: 1.18rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.simple-signoff-left p {
+    margin: 4px 0 0 0;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.btn-simple-accept {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-simple-accept:hover {
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.65);
+    transform: translateY(-2px);
+}
+
+.btn-simple-accept:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Senior Mode Overrides for Simple View */
+body.senior-operator-mode .simple-step-num {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+}
+
+body.senior-operator-mode .simple-step-header h3 {
+    font-size: 1.25rem;
+}
+
+body.senior-operator-mode .reading-val {
+    font-size: 1.45rem;
+}
+
+body.senior-operator-mode .simple-watch-chk {
+    width: 26px;
+    height: 26px;
+}
+
+body.senior-operator-mode .simple-watch-text {
+    font-size: 1rem;
+}
+
+body.senior-operator-mode .btn-simple-accept {
+    padding: 16px 32px;
+    font-size: 1.12rem;
+}
+
+/* ==========================================================================
    40+ SENIOR OPERATOR ACCESSIBILITY MODE (REVERSIBLE)
    ========================================================================== */
 body.senior-operator-mode {

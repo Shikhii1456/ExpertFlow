@@ -46,6 +46,16 @@
                 <button class="lang-btn" id="btnLangHI" data-lang="hi">हिन्दी</button>
             </div>
 
+            <!-- Simple vs Detailed Interface Switcher -->
+            <div class="view-mode-switch-group" title="Switch between Simple Operator Console and Detailed Engineering View">
+                <button class="view-mode-btn active" id="btnViewSimple">
+                    <i class="fas fa-hand-pointer"></i> <span id="lblViewSimple">Simple View</span>
+                </button>
+                <button class="view-mode-btn" id="btnViewDetailed">
+                    <i class="fas fa-sliders"></i> <span id="lblViewDetailed">Detailed View</span>
+                </button>
+            </div>
+
             <button class="btn-demo-mode" id="btnQuickDemo">
                 <i class="fas fa-play-circle"></i> <span id="txtBtnDemo">5-Min Demo</span>
             </button>
@@ -279,6 +289,90 @@
                             <button class="pill-btn" id="btnModeReviewCanvas"><i class="fas fa-clipboard-check"></i> Shift B Review &amp; Sign-off</button>
                         </div>
                         <button class="btn-secondary" id="btnToggleLogMode"><i class="fas fa-code-compare"></i> Vague Log Trap Demonstration</button>
+                    </div>
+                </div>
+
+                <!-- ======================================================================
+                     SIMPLE OPERATOR CONSOLE (CLEAN & DISTRACTION-FREE 3-STEP FLOW)
+                     ====================================================================== -->
+                <div class="simple-operator-container" id="simpleOperatorContainer">
+                    <!-- Top Equipment Selector Bar -->
+                    <div class="simple-unit-banner">
+                        <div class="simple-banner-title">
+                            <span class="simple-step-tag"><i class="fas fa-industry"></i> <span id="lblSimpleAssetTag">MONITORED REFINERY EQUIPMENT:</span></span>
+                            <h2 id="simpleTargetAssetName">P-101 Heavy Naphtha Centrifugal Booster Pump (Crude Distillation Unit)</h2>
+                        </div>
+                        <div class="simple-unit-chips">
+                            <button class="simple-chip active" data-unit="pump" id="btnSimpleUnitPump"><i class="fas fa-water"></i> P-101 Pump</button>
+                            <button class="simple-chip" data-unit="column" id="btnSimpleUnitColumn"><i class="fas fa-tower-observation"></i> C-201 Column</button>
+                            <button class="simple-chip" data-unit="compressor" id="btnSimpleUnitCompressor"><i class="fas fa-gauge-high"></i> K-301 Compressor</button>
+                            <button class="simple-chip" data-unit="pipeline" id="btnSimpleUnitPipeline"><i class="fas fa-route"></i> PL-400 Pipeline</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Health & Critical Parameters -->
+                    <div class="simple-card simple-step-card">
+                        <div class="simple-step-header">
+                            <div class="simple-step-num">1</div>
+                            <div>
+                                <h3 id="lblSimpleStep1Title">Operational Health & Key Readings</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep1Sub">Live parameters verified across Shift A</p>
+                            </div>
+                            <span class="simple-health-pill attention" id="simpleHealthPill"><i class="fas fa-triangle-exclamation"></i> Attention Required</span>
+                        </div>
+                        <div class="simple-readings-grid" id="simpleReadingsGrid">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Spoken Shift Briefing -->
+                    <div class="simple-card simple-step-card">
+                        <div class="simple-step-header">
+                            <div class="simple-step-num">2</div>
+                            <div>
+                                <h3 id="lblSimpleStep2Title">Spoken Shift Debrief (Voice Summary)</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep2Sub">Listen to the outgoing lead engineer's verbal debrief</p>
+                            </div>
+                        </div>
+                        <div class="simple-audio-bar">
+                            <button class="btn-simple-play" id="btnSimplePlayAudio">
+                                <i class="fas fa-play" id="simplePlayIcon"></i> <span id="lblSimplePlayText">Listen to Verbal Debrief</span>
+                            </button>
+                            <div class="simple-transcript-bubble">
+                                <i class="fas fa-quote-left text-accent"></i>
+                                <span id="simpleTranscriptText">"Kunal, quick briefing on P-101. Around 11:30 we noticed a slight gravel crackle at the suction nozzle..."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Critical Watchpoints & Safety Boundaries -->
+                    <div class="simple-card simple-step-card">
+                        <div class="simple-step-header">
+                            <div class="simple-step-num">3</div>
+                            <div>
+                                <h3 id="lblSimpleStep3Title">Critical Watchpoints & Action Rules</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep3Sub">Mandatory constraints you must observe during Shift B</p>
+                            </div>
+                        </div>
+                        <div class="simple-watchpoints-list" id="simpleWatchpointsList">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Simple Shift Acceptance & Sign-off -->
+                    <div class="simple-card simple-signoff-card">
+                        <div class="simple-signoff-content">
+                            <div class="simple-signoff-left">
+                                <i class="fas fa-signature text-accent simple-sign-icon"></i>
+                                <div>
+                                    <h4 id="lblSimpleSignTitle">Ready to Assume Shift Custody?</h4>
+                                    <p id="lblSimpleSignSub">Shift A (R. Verma • #IOCL-8821) signed off. Confirm above items to assume operational control as Shift B Lead (K. Mukherjee).</p>
+                                </div>
+                            </div>
+                            <button class="btn-simple-accept" id="btnSimpleAcceptHandover">
+                                <i class="fas fa-shield-halved"></i> <span id="lblSimpleAcceptText">Confirm & Assume Shift Control</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
