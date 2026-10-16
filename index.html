@@ -28,9 +28,14 @@
             </div>
         </div>
         <div class="pitch-banner-right">
-            <!-- 40+ Senior Operator Mode Toggle -->
-            <button class="btn-accessibility" id="btnToggleSeniorMode" title="40+ Senior Operator Mode (Large Text &amp; High Contrast)">
-                <i class="fas fa-glasses"></i> <span id="labelSeniorMode">Senior Mode (40+)</span>
+            <!-- Theme Contrast Mode: Calm Dark vs Normal Daylight -->
+            <button class="btn-theme-toggle" id="btnToggleTheme" title="Toggle between Calm Dark and Normal Daylight Mode">
+                <i class="fas fa-sun" id="themeIcon"></i> <span id="labelTheme">Normal Mode</span>
+            </button>
+
+            <!-- 40+ Senior Operator Comfort Mode Toggle -->
+            <button class="btn-accessibility" id="btnToggleSeniorMode" title="Senior Comfort Mode (Large Text & Easy-to-Tap Ergonomics)">
+                <i class="fas fa-glasses"></i> <span id="labelSeniorMode">Comfort Mode (40+)</span>
             </button>
 
             <!-- Font Sizer (A- / Reset / A+) -->
@@ -299,7 +304,7 @@
                     <!-- Top Equipment Selector Bar -->
                     <div class="simple-unit-banner">
                         <div class="simple-banner-title">
-                            <span class="simple-step-tag"><i class="fas fa-industry"></i> <span id="lblSimpleAssetTag">MONITORED REFINERY EQUIPMENT:</span></span>
+                            <span class="simple-step-tag"><i class="fas fa-industry"></i> <span id="lblSimpleAssetTag">Equipment in Focus:</span></span>
                             <h2 id="simpleTargetAssetName">P-101 Heavy Naphtha Centrifugal Booster Pump (Crude Distillation Unit)</h2>
                         </div>
                         <div class="simple-unit-chips">
@@ -315,10 +320,10 @@
                         <div class="simple-step-header">
                             <div class="simple-step-num">1</div>
                             <div>
-                                <h3 id="lblSimpleStep1Title">Operational Health & Key Readings</h3>
-                                <p class="simple-step-sub" id="lblSimpleStep1Sub">Live parameters verified across Shift A</p>
+                                <h3 id="lblSimpleStep1Title">Shift A Key Readings</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep1Sub">Live parameters recorded before shift transfer</p>
                             </div>
-                            <span class="simple-health-pill attention" id="simpleHealthPill"><i class="fas fa-triangle-exclamation"></i> Attention Required</span>
+                            <span class="simple-health-pill attention" id="simpleHealthPill"><i class="fas fa-circle-exclamation"></i> Needs Attention</span>
                         </div>
                         <div class="simple-readings-grid" id="simpleReadingsGrid">
                             <!-- Populated dynamically by JS -->
@@ -330,13 +335,13 @@
                         <div class="simple-step-header">
                             <div class="simple-step-num">2</div>
                             <div>
-                                <h3 id="lblSimpleStep2Title">Spoken Shift Debrief (Voice Summary)</h3>
-                                <p class="simple-step-sub" id="lblSimpleStep2Sub">Listen to the outgoing lead engineer's verbal debrief</p>
+                                <h3 id="lblSimpleStep2Title">Verbal Handover Briefing</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep2Sub">Audio note from Shift Lead Rajesh Verma</p>
                             </div>
                         </div>
                         <div class="simple-audio-bar">
                             <button class="btn-simple-play" id="btnSimplePlayAudio">
-                                <i class="fas fa-play" id="simplePlayIcon"></i> <span id="lblSimplePlayText">Listen to Verbal Debrief</span>
+                                <i class="fas fa-play" id="simplePlayIcon"></i> <span id="lblSimplePlayText">Play Audio Briefing</span>
                             </button>
                             <div class="simple-transcript-bubble">
                                 <i class="fas fa-quote-left text-accent"></i>
@@ -350,8 +355,8 @@
                         <div class="simple-step-header">
                             <div class="simple-step-num">3</div>
                             <div>
-                                <h3 id="lblSimpleStep3Title">Critical Watchpoints & Action Rules</h3>
-                                <p class="simple-step-sub" id="lblSimpleStep3Sub">Mandatory constraints you must observe during Shift B</p>
+                                <h3 id="lblSimpleStep3Title">What to Watch & Safety Limits</h3>
+                                <p class="simple-step-sub" id="lblSimpleStep3Sub">Important guidelines and boundaries for Shift B</p>
                             </div>
                         </div>
                         <div class="simple-watchpoints-list" id="simpleWatchpointsList">
@@ -365,12 +370,12 @@
                             <div class="simple-signoff-left">
                                 <i class="fas fa-signature text-accent simple-sign-icon"></i>
                                 <div>
-                                    <h4 id="lblSimpleSignTitle">Ready to Assume Shift Custody?</h4>
-                                    <p id="lblSimpleSignSub">Shift A (R. Verma • #IOCL-8821) signed off. Confirm above items to assume operational control as Shift B Lead (K. Mukherjee).</p>
+                                    <h4 id="lblSimpleSignTitle">Ready to Take Over Shift?</h4>
+                                    <p id="lblSimpleSignSub">Shift A Lead Rajesh Verma (#IOCL-8821) has completed the log. Confirm above items to assume control as Shift B Lead Kunal Mukherjee.</p>
                                 </div>
                             </div>
                             <button class="btn-simple-accept" id="btnSimpleAcceptHandover">
-                                <i class="fas fa-shield-halved"></i> <span id="lblSimpleAcceptText">Confirm & Assume Shift Control</span>
+                                <i class="fas fa-check-circle"></i> <span id="lblSimpleAcceptText">Accept & Take Over Shift</span>
                             </button>
                         </div>
                     </div>

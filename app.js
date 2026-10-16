@@ -24,7 +24,8 @@ const appState = {
     language: 'en',
     seniorMode: false,
     fontScaleIndex: 1,
-    viewMode: 'simple'
+    viewMode: 'simple',
+    theme: 'dark'
 };
 
 let radarChart = null;
@@ -449,30 +450,36 @@ const TRANSLATIONS = {
             cancelBtn: 'Cancel & Re-read Log',
             confirmBtn: '<i class="fas fa-signature"></i> Affirm & Seal Handover'
         },
+        seniorBtnActive: 'Comfort Mode (Active)',
+        seniorBtnInactive: 'Comfort Mode (40+)',
+        themeNormalBtn: '<i class="fas fa-sun"></i> Normal Mode',
+        themeDarkBtn: '<i class="fas fa-moon"></i> Calm Dark',
         viewMode: {
-            simpleBtn: '<i class="fas fa-hand-pointer"></i> Simple View',
-            detailedBtn: '<i class="fas fa-sliders"></i> Detailed View',
-            assetTag: 'MONITORED REFINERY EQUIPMENT:',
-            step1Title: 'Operational Health & Key Readings',
-            step1Sub: 'Live parameters verified across Shift A',
-            step2Title: 'Spoken Shift Debrief (Voice Summary)',
-            step2Sub: 'Listen to the outgoing lead engineer\'s verbal debrief',
-            playText: 'Listen to Verbal Debrief',
-            pauseText: 'Pause Verbal Debrief',
-            step3Title: 'Critical Watchpoints & Action Rules',
-            step3Sub: 'Mandatory constraints you must observe during Shift B',
-            signTitle: 'Ready to Assume Shift Custody?',
-            signSub: 'Shift A (R. Verma • #IOCL-8821) signed off. Confirm above items to assume operational control as Shift B Lead (K. Mukherjee).',
-            acceptBtn: '<i class="fas fa-shield-halved"></i> Confirm & Assume Shift Control',
-            acceptedBtn: '<i class="fas fa-check-double"></i> Shift Control Assumed (Shift B Active)'
+            simpleBtn: '<i class="fas fa-table-cells-large"></i> Operator View',
+            detailedBtn: '<i class="fas fa-chart-line"></i> Engineering View',
+            assetTag: 'Equipment in Focus:',
+            step1Title: 'Shift A Key Readings',
+            step1Sub: 'Live parameters recorded before shift transfer',
+            step2Title: 'Verbal Handover Briefing',
+            step2Sub: 'Audio note from Shift Lead Rajesh Verma',
+            playText: 'Play Audio Briefing',
+            pauseText: 'Pause Briefing',
+            step3Title: 'What to Watch & Safety Limits',
+            step3Sub: 'Important guidelines and boundaries for Shift B',
+            signTitle: 'Ready to Take Over Shift?',
+            signSub: 'Shift A Lead Rajesh Verma (#IOCL-8821) has completed the log. Confirm above items to assume control as Shift B Lead Kunal Mukherjee.',
+            acceptBtn: '<i class="fas fa-check-circle"></i> Accept & Take Over Shift',
+            acceptedBtn: '<i class="fas fa-check-double"></i> Shift Handover Accepted (Shift B Active)'
         }
     },
     hi: {
         bannerTitle: '<strong>ExpertFlow:</strong> परिचालन निरंतरता एवं क्रॉस-शिफ्ट दक्षता',
         shiftA: '<i class="fas fa-sun"></i> शिफ्ट A (आउटगोइंग)',
         shiftB: '<i class="fas fa-cloud-sun"></i> शिफ्ट B (इनकमिंग लीड)',
-        seniorBtnActive: 'सीनियर मोड (सक्रिय)',
-        seniorBtnInactive: 'सीनियर मोड (40+)',
+        seniorBtnActive: 'कम्फर्ट मोड (सक्रिय)',
+        seniorBtnInactive: 'कम्फर्ट मोड (40+)',
+        themeNormalBtn: '<i class="fas fa-sun"></i> सामान्य मोड',
+        themeDarkBtn: '<i class="fas fa-moon"></i> शांत डार्क',
         demoBtn: '5-मिनट डेमो',
         nav: {
             overview: 'कार्यकारी अवलोकन (Overview)',
@@ -525,21 +532,21 @@ const TRANSLATIONS = {
             confirmBtn: '<i class="fas fa-signature"></i> सत्यापित करें व हैंडओवर सील करें'
         },
         viewMode: {
-            simpleBtn: '<i class="fas fa-hand-pointer"></i> सरल मोड (Simple)',
-            detailedBtn: '<i class="fas fa-sliders"></i> विस्तृत मोड (Detailed)',
-            assetTag: 'निगरानी अधीन रिफाइनरी उपकरण:',
-            step1Title: 'परिचालन स्थिति एवं मुख्य रीडिंग',
-            step1Sub: 'शिफ्ट A के दौरान सत्यापित मुख्य पैरामीटर',
-            step2Title: 'मौखिक शिफ्ट ब्रीफिंग (ऑडियो सारांश)',
-            step2Sub: 'आउटगोइंग लीड इंजीनियर की मौखिक ब्रीफिंग सुनें',
-            playText: 'मौखिक ब्रीफिंग सुनें',
-            pauseText: 'मौखिक ब्रीफिंग रोकें',
-            step3Title: 'महत्वपूर्ण निगरानी बिंदु व सुरक्षा नियम',
-            step3Sub: 'अनिवार्य परिचालन सीमाएं जिनका पालन करना आवश्यक है',
-            signTitle: 'क्या आप शिफ्ट प्रभार लेने के लिए तैयार हैं?',
-            signSub: 'शिफ्ट A (आर. वर्मा • #IOCL-8821) द्वारा हस्ताक्षरित। शिफ्ट B लीड (के. मुखर्जी) के रूप में नियंत्रण स्वीकार करें।',
-            acceptBtn: '<i class="fas fa-shield-halved"></i> पुष्टि करें व शिफ्ट प्रभार ग्रहण करें',
-            acceptedBtn: '<i class="fas fa-check-double"></i> शिफ्ट प्रभार ग्रहण किया गया (Shift B सक्रिय)'
+            simpleBtn: '<i class="fas fa-table-cells-large"></i> ऑपरेटर दृश्य',
+            detailedBtn: '<i class="fas fa-chart-line"></i> इंजीनियरिंग दृश्य',
+            assetTag: 'वर्तमान संयंत्र इकाई:',
+            step1Title: 'शिफ्ट A की मुख्य रीडिंग',
+            step1Sub: 'हैंडओवर से पहले दर्ज किए गए मुख्य पैरामीटर',
+            step2Title: 'मौखिक हैंडओवर ब्रीफिंग',
+            step2Sub: 'राजेश वर्मा (शिफ्ट A लीड) का 30-सेकंड का ऑडियो संदेश',
+            playText: 'ऑडियो ब्रीफिंग सुनें',
+            pauseText: 'ब्रीफिंग रोकें',
+            step3Title: 'ध्यान देने योग्य बातें व सुरक्षा सीमाएं',
+            step3Sub: 'शिफ्ट B के लिए जरूरी दिशा-निर्देश',
+            signTitle: 'क्या आप शिफ्ट की जिम्मेदारी लेने के लिए तैयार हैं?',
+            signSub: 'शिफ्ट A लीड राजेश वर्मा (#IOCL-8821) ने लॉग पूरा कर लिया है। शिफ्ट B लीड कुणाल मुखर्जी के रूप में प्रभार स्वीकार करें।',
+            acceptBtn: '<i class="fas fa-check-circle"></i> स्वीकार करें व शिफ्ट प्रभार लें',
+            acceptedBtn: '<i class="fas fa-check-double"></i> शिफ्ट प्रभार स्वीकार किया गया (Shift B सक्रिय)'
         }
     }
 };
@@ -551,7 +558,7 @@ const TRANSLATIONS = {
 const SIMPLE_VIEW_DATA = {
     pump: {
         assetName: "P-101 Heavy Naphtha Centrifugal Booster Pump (Crude Distillation Unit)",
-        healthStatus: "Attention Required",
+        healthStatus: "Needs Attention",
         healthClass: "attention",
         readings: [
             { name: "Feed Throughput", val: "850 m³/h", status: "100% Design", statusCls: "ok", boxCls: "" },
@@ -561,14 +568,14 @@ const SIMPLE_VIEW_DATA = {
         ],
         transcript: "Kunal, quick briefing on P-101. Around 11:30 we noticed a slight gravel crackle at the suction nozzle and vibration rose to 4.6 mm/s. Don't panic and pull the pump—we checked bearing temp and it's normal at 52°C. It's thermal cavitation because suction liquid ran 4°C hot. We boosted upstream suction drum level by 1.2m and trimmed discharge. Watch-point: keep suction liquid below 82°C. If vibration crosses 6.5 mm/s, commission standby pump P-101B.",
         watchpoints: [
-            { badge: "TEMPERATURE BOUNDARY", badgeCls: "limit", text: "Suction liquid temperature must stay strictly below 82°C to prevent acute vapor cavitation." },
-            { badge: "ACTIVE SURVEILLANCE", badgeCls: "active", text: "Observe suction strainer differential pressure; inspect if DP climbs above 0.6 bar." },
-            { badge: "OISD-119 ESCALATION", badgeCls: "trip", text: "If casing vibration exceeds 6.5 mm/s, immediately commission standby pump P-101B." }
+            { badge: "Temp Limit", badgeCls: "limit", text: "Suction liquid temperature must stay strictly below 82°C to prevent acute vapor cavitation." },
+            { badge: "Routine Check", badgeCls: "active", text: "Observe suction strainer differential pressure; inspect if DP climbs above 0.6 bar." },
+            { badge: "Standby Action", badgeCls: "trip", text: "If casing vibration exceeds 6.5 mm/s, immediately commission standby pump P-101B." }
         ]
     },
     column: {
         assetName: "C-201 Atmospheric Distillation Column (42 Sieve Trays)",
-        healthStatus: "DP Attention Required",
+        healthStatus: "Needs DP Check",
         healthClass: "attention",
         readings: [
             { name: "Crude Charge Rate", val: "1,200 m³/h", status: "Normal Feed", statusCls: "ok", boxCls: "" },
@@ -578,9 +585,9 @@ const SIMPLE_VIEW_DATA = {
         ],
         transcript: "Shift B team, heads up on Atmospheric Column C-201. Top differential pressure crept up to 395 mmWC after the 10:00 crude switch. Do not cut reboiler firing—the reflux was subcooled at 42°C, causing downcomer choking, not reboiler foaming. We trimmed top reflux flow smoothly from 145 down to 125 m³/h. Watch-point: watch top DP closely; if it touches 430 mmWC, cut reflux by another 5 m³/h. If column overhead hits 2.8 kg/cm², execute immediate flare diversion.",
         watchpoints: [
-            { badge: "HYDRAULIC CHOKE LIMIT", badgeCls: "limit", text: "Keep top differential pressure strictly under 430 mmWC to prevent downcomer choking." },
-            { badge: "REFLUX DE-ESCALATION", badgeCls: "active", text: "Incoming lead must continue trimming cold reflux flow in 5 m³/h increments down toward 120 m³/h." },
-            { badge: "OISD-108 SAFETY LIMIT", badgeCls: "trip", text: "If column overhead pressure touches 2.8 kg/cm², execute immediate emergency flare diversion." }
+            { badge: "Choke Limit", badgeCls: "limit", text: "Keep top differential pressure strictly under 430 mmWC to prevent downcomer choking." },
+            { badge: "Reflux Trim", badgeCls: "active", text: "Incoming lead must continue trimming cold reflux flow in 5 m³/h increments down toward 120 m³/h." },
+            { badge: "Safety Limit", badgeCls: "trip", text: "If column overhead pressure touches 2.8 kg/cm², execute immediate emergency flare diversion." }
         ]
     },
     compressor: {
@@ -595,14 +602,14 @@ const SIMPLE_VIEW_DATA = {
         ],
         transcript: "Control lead, note on Wet Gas Compressor K-301. Suction mass flow dipped by 22% when upstream FCC cat-cracker swung feed. Anti-surge margin collapsed to 12%. We immediately step-opened the anti-surge hot gas bypass valve by 15% and trimmed turbine speed. Whatever you do, do not trip the machine—forward flow is now stable. Watch-point: keep surge margin above 15% and inspect the suction knockout drum boot level every 30 minutes for liquid carryover.",
         watchpoints: [
-            { badge: "SURGE MARGIN RULE", badgeCls: "limit", text: "Maintain anti-surge margin strictly above 15%; step-open hot recycle loop if feed swings >10%." },
-            { badge: "LIQUID CARRYOVER DANGER", badgeCls: "active", text: "Manually inspect and drain suction knock-out drum boot every 30 minutes to protect impellers." },
-            { badge: "API 670 TRIP PROTOCOL", badgeCls: "trip", text: "3 rapid surge oscillations within 10 seconds will trigger automatic compressor shutdown." }
+            { badge: "Surge Limit", badgeCls: "limit", text: "Maintain anti-surge margin strictly above 15%; step-open hot recycle loop if feed swings >10%." },
+            { badge: "Drain Check", badgeCls: "active", text: "Manually inspect and drain suction knock-out drum boot every 30 minutes to protect impellers." },
+            { badge: "Trip Safety", badgeCls: "trip", text: "3 rapid surge oscillations within 10 seconds will trigger automatic compressor shutdown." }
         ]
     },
     pipeline: {
         assetName: "PL-400 24-Inch Interstate Crude Supply Pipeline (500 km)",
-        healthStatus: "Operating Under De-rate",
+        healthStatus: "Operating at Reduced Pressure",
         healthClass: "attention",
         readings: [
             { name: "Operating Pressure", val: "68 bar", status: "De-rated (MAOP 80)", statusCls: "ok", boxCls: "" },
@@ -612,9 +619,9 @@ const SIMPLE_VIEW_DATA = {
         ],
         transcript: "Pipeline dispatch, briefing on Crude Trunkline PL-400. Intelligent pigging inline inspection flagged an immediate 80% wall loss anomaly—a 9.6mm external corrosion pit at kilometer 142. Based on ASME B31G calculations, we de-rated line operating pressure to 68 bar so throughput can continue safely until the sleeve repair crew arrives. Watch-point: strictly forbid pressure surges above 70 bar during booster pump starts, and maintain SCADA leak detection monitoring active.",
         watchpoints: [
-            { badge: "PRESSURE SURGE CEILING", badgeCls: "limit", text: "Strictly forbid pressure transient spikes above 70 bar during booster pump starts." },
-            { badge: "FIELD NDT PROTOCOL", badgeCls: "active", text: "Incoming shift must receive radio confirmation from excavation crew when hand-digging reaches pipe crown." },
-            { badge: "OISD-141 SCADA SURVEILLANCE", badgeCls: "trip", text: "Maintain continuous computational mass-balance leak detection algorithm on high alert." }
+            { badge: "Pressure Ceiling", badgeCls: "limit", text: "Strictly forbid pressure transient spikes above 70 bar during booster pump starts." },
+            { badge: "Field Protocol", badgeCls: "active", text: "Incoming shift must receive radio confirmation from excavation crew when hand-digging reaches pipe crown." },
+            { badge: "Leak Watch", badgeCls: "trip", text: "Maintain continuous computational mass-balance leak detection algorithm on high alert." }
         ]
     }
 };
@@ -622,7 +629,7 @@ const SIMPLE_VIEW_DATA = {
 const SIMPLE_VIEW_DATA_HI = {
     pump: {
         assetName: "P-101 हेवी नैफ्था सेंट्रीफ्यूगल बूस्टर पंप (क्रूड डिस्टिलेशन यूनिट)",
-        healthStatus: "विशेष ध्यान अपेक्षित",
+        healthStatus: "जांच अपेक्षित",
         healthClass: "attention",
         readings: [
             { name: "फीड थ्रूपुट", val: "850 m³/h", status: "100% सामान्य", statusCls: "ok", boxCls: "" },
@@ -633,13 +640,13 @@ const SIMPLE_VIEW_DATA_HI = {
         transcript: "कुणाल, P-101 पर त्वरित ब्रीफिंग। लगभग 11:30 बजे सक्शन नोजल पर हल्की बजरी जैसी चरमराहट देखी गई और कंपन बढ़कर 4.6 mm/s हो गया। घबराकर पंप बंद मत करना—हमने बेयरिंग हाउसिंग तापमान जांचा है और यह 52°C पर पूरी तरह सामान्य है। यह थर्मल वेपर कैविटेशन है क्योंकि आज सक्शन तरल लगभग 4°C अधिक गर्म था। हमने अपस्ट्रीम सक्शन ड्रम स्तर 1.2 मीटर बढ़ाया और डिस्चार्ज को 8% थ्रॉटल किया। निगरानी बिंदु: सक्शन तरल तापमान सख्ती से 82°C से नीचे रखें। यदि कंपन 6.5 mm/s को पार करता है, तो तुरंत स्टैंडबाय पंप P-101B चालू करें।",
         watchpoints: [
             { badge: "तापमान सीमा", badgeCls: "limit", text: "सक्शन तरल तापमान को सख्ती से 82°C से नीचे रखें ताकि तीव्र वेपर कैविटेशन न हो।" },
-            { badge: "सक्रिय निगरानी", badgeCls: "active", text: "सक्शन स्ट्रेनर DP पर नजर रखें; यदि यह 0.6 bar से ऊपर जाए तो तुरंत जांचें।" },
-            { badge: "OISD-119 एस्केलेशन", badgeCls: "trip", text: "यदि केसिंग कंपन 6.5 mm/s को पार करता है, तो स्टैंडबाय पंप P-101B तुरंत चालू करें।" }
+            { badge: "नियमित जांच", badgeCls: "active", text: "सक्शन स्ट्रेनर DP पर नजर रखें; यदि यह 0.6 bar से ऊपर जाए तो तुरंत जांचें।" },
+            { badge: "स्टैंडबाय कार्रवाई", badgeCls: "trip", text: "यदि केसिंग कंपन 6.5 mm/s को पार करता है, तो स्टैंडबाय पंप P-101B तुरंत चालू करें।" }
         ]
     },
     column: {
         assetName: "C-201 एटमॉस्फेरिक डिस्टिलेशन कॉलम (42 सीव ट्रे)",
-        healthStatus: "DP ध्यान अपेक्षित",
+        healthStatus: "DP जांच अपेक्षित",
         healthClass: "attention",
         readings: [
             { name: "क्रूड चार्ज दर", val: "1,200 m³/h", status: "सामान्य फीड", statusCls: "ok", boxCls: "" },
@@ -649,14 +656,14 @@ const SIMPLE_VIEW_DATA_HI = {
         ],
         transcript: "शिफ्ट B टीम, एटमॉस्फेरिक कॉलम C-201 पर ध्यान दें। 10:00 बजे क्रूड बदलने के बाद टॉप डिफरेंशियल प्रेशर 395 mmWC तक पहुंच गया। रीबॉयलर फायरिंग कम न करें—रिफ्लक्स 42°C पर सब-कूल्ड था, जिससे डाउनकमर चोकिंग हुई, न कि रीबॉयलर फोमिंग। हमने टॉप रिफ्लक्स प्रवाह 145 से घटाकर 125 m³/h किया है। निगरानी बिंदु: टॉप DP पर पैनी नजर रखें; यदि यह 430 mmWC छूता है, तो रिफ्लक्स 5 m³/h और घटाएं। यदि कॉलम प्रेशर 2.8 kg/cm² पहुंचता है, तो तुरंत फ्लेयर डाइवर्जन करें।",
         watchpoints: [
-            { badge: "हाइड्रोलिक चोक सीमा", badgeCls: "limit", text: "टॉप डिफ्रेंशियल प्रेशर को 430 mmWC से नीचे रखें ताकि डाउनकमर फ्लडिंग न हो।" },
-            { badge: "रिफ्लक्स डी-एस्केलेशन", badgeCls: "active", text: "इनकमिंग लीड को कोल्ड रिफ्लक्स प्रवाह 5 m³/h के चरणों में घटाकर 120 m³/h तक लाना चाहिए।" },
-            { badge: "OISD-108 सुरक्षा नियम", badgeCls: "trip", text: "यदि कॉलम दबाव 2.8 kg/cm² पहुंचता है, तो तत्काल आपातकालीन फ्लेयर डाइवर्जन निष्पादित करें।" }
+            { badge: "चोक सीमा", badgeCls: "limit", text: "टॉप डिफ्रेंशियल प्रेशर को 430 mmWC से नीचे रखें ताकि डाउनकमर फ्लडिंग न हो।" },
+            { badge: "रिफ्लक्स ट्रिम", badgeCls: "active", text: "इनकमिंग लीड को कोल्ड रिफ्लक्स प्रवाह 5 m³/h के चरणों में घटाकर 120 m³/h तक लाना चाहिए।" },
+            { badge: "सुरक्षा सीमा", badgeCls: "trip", text: "यदि कॉलम दबाव 2.8 kg/cm² पहुंचता है, तो तत्काल आपातकालीन फ्लेयर डाइवर्जन निष्पादित करें।" }
         ]
     },
     compressor: {
         assetName: "K-301 टू-स्टेज सेंट्रीफ्यूगल वेट गैस कंप्रेसर (FCC यूनिट)",
-        healthStatus: "सर्ज मार्जिन चेतावनी",
+        healthStatus: "सर्ज निगरानी जरूरी",
         healthClass: "attention",
         readings: [
             { name: "सक्शन मास फ्लो", val: "42,100 kg/h", status: "-22% फीड स्विंग", statusCls: "warn", boxCls: "warn" },
@@ -666,14 +673,14 @@ const SIMPLE_VIEW_DATA_HI = {
         ],
         transcript: "कंट्रोल रूम लीड, वेट गैस कंप्रेसर K-301 पर नोट करें। अपस्ट्रीम FCC फीड स्विंग होने पर सक्शन मास फ्लो 22% गिरा। एंटी-सर्ज मार्जिन घटकर 12% रह गया। हमने तुरंत एंटी-सर्ज हॉट गैस बाईपास 15% खोला और टर्बाइन गति संतुलित की। मशीन को ट्रिप न करें—फॉरवर्ड फ्लो अब स्थिर है। निगरानी बिंदु: सर्ज मार्जिन 15% से ऊपर रखें और लिक्विड कैरीओवर से बचाव के लिए हर 30 मिनट में नॉकआउट ड्रम बूट स्तर जांचें।",
         watchpoints: [
-            { badge: "सर्ज मार्जिन सीमा", badgeCls: "limit", text: "सर्ज मार्जिन सख्ती से 15% से ऊपर रखें; यदि फीड >10% गिरे तो रीसायकल तुरंत खोलें।" },
-            { badge: "लिक्विड कैरीओवर खतरा", badgeCls: "active", text: "इम्पेलर्स की सुरक्षा के लिए हर 30 मिनट में सक्शन KO ड्रम बूट स्तर जांचें व ड्रेन करें।" },
-            { badge: "API 670 ट्रिप नियम", badgeCls: "trip", text: "10 सेकंड के भीतर 3 तीव्र सर्ज दोलन होने पर ऑटोमैटिक कंप्रेसर शटडाउन होगा।" }
+            { badge: "सर्ज सीमा", badgeCls: "limit", text: "सर्ज मार्जिन सख्ती से 15% से ऊपर रखें; यदि फीड >10% गिरे तो रीसायकल तुरंत खोलें।" },
+            { badge: "ड्रेन जांच", badgeCls: "active", text: "इम्पेलर्स की सुरक्षा के लिए हर 30 मिनट में सक्शन KO ड्रम बूट स्तर जांचें व ड्रेन करें।" },
+            { badge: "ट्रिप सुरक्षा", badgeCls: "trip", text: "10 सेकंड के भीतर 3 तीव्र सर्ज दोलन होने पर ऑटोमैटिक कंप्रेसर शटडाउन होगा।" }
         ]
     },
     pipeline: {
         assetName: "PL-400 24-इंच इंटरस्टेट क्रूड सप्लाई पाइपलाइन (500 किमी)",
-        healthStatus: "डी-रेट पर परिचालन",
+        healthStatus: "कम दबाव पर परिचालन",
         healthClass: "attention",
         readings: [
             { name: "ऑपरेटिंग प्रेशर", val: "68 bar", status: "डी-रेटेड (MAOP 80)", statusCls: "ok", boxCls: "" },
@@ -683,9 +690,9 @@ const SIMPLE_VIEW_DATA_HI = {
         ],
         transcript: "पाइपलाइन प्रेषण, क्रूड ट्रंकलाइन PL-400 पर ब्रीफिंग। इंटेलिजेंट पिगिंग इनलाइन इंस्पेक्शन ने 80% वाल लॉस विसंगति (किलोमीटर 142 पर 9.6mm बाहरी जंग) चिन्हित की है। ASME B31G गणना के आधार पर, हमने सुरक्षित परिचालन के लिए दबाव 68 bar तक सीमित कर दिया है ताकि स्लीव मरम्मत टीम आने तक आपूर्ति जारी रहे। निगरानी बिंदु: बूस्टर पंप शुरू करते समय 70 bar से ऊपर प्रेशर स्पाइक न होने दें, और SCADA लीक डिटेक्शन सक्रिय रखें।",
         watchpoints: [
-            { badge: "दबाव स्पाइक सीमा", badgeCls: "limit", text: "बूस्टर पंप चालू करते समय 70 bar से अधिक के प्रेशर स्पाइक्स पर सख्त रोक है।" },
-            { badge: "फील्ड NDT प्रोटोकॉल", badgeCls: "active", text: "हाथ से खुदाई पाइप क्राउन तक पहुंचने पर फील्ड टीम से वायरलेस पुष्टि अनिवार्य है।" },
-            { badge: "OISD-141 SCADA निगरानी", badgeCls: "trip", text: "SCADA पर रीयल-टाइम मास-बैलेंस लीक डिटेक्शन एल्गोरिदम को हाई अलर्ट पर रखें।" }
+            { badge: "दबाव सीमा", badgeCls: "limit", text: "बूस्टर पंप चालू करते समय 70 bar से अधिक के प्रेशर स्पाइक्स पर सख्त रोक है।" },
+            { badge: "फील्ड प्रोटोकॉल", badgeCls: "active", text: "हाथ से खुदाई पाइप क्राउन तक पहुंचने पर फील्ड टीम से वायरलेस पुष्टि अनिवार्य है।" },
+            { badge: "लीक निगरानी", badgeCls: "trip", text: "SCADA पर रीयल-टाइम मास-बैलेंस लीक डिटेक्शन एल्गोरिदम को हाई अलर्ट पर रखें।" }
         ]
     }
 };
@@ -1173,13 +1180,13 @@ function renderSimpleOperatorView(unitKey) {
         if (appState.handoverAcknowledged) {
             acceptBtn.disabled = true;
             acceptBtn.innerHTML = '<i class="fas fa-check-double"></i> <span>' + 
-                (isHindi ? 'हैंडओवर हस्ताक्षरित व स्वीकृत ✓' : 'Shift Custody Transferred ✓') + '</span>';
+                (isHindi ? 'शिफ्ट प्रभार स्वीकार किया गया (Shift B सक्रिय)' : 'Shift Handover Accepted (Shift B Active)') + '</span>';
             acceptBtn.style.opacity = '0.85';
             acceptBtn.style.cursor = 'default';
         } else {
             acceptBtn.disabled = false;
-            acceptBtn.innerHTML = '<i class="fas fa-shield-halved"></i> <span id="lblSimpleAcceptText">' + 
-                (isHindi ? 'पुष्टि करें व शिफ्ट प्रभार ग्रहण करें' : 'Confirm & Assume Shift Control') + '</span>';
+            acceptBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span id="lblSimpleAcceptText">' + 
+                (isHindi ? 'स्वीकार करें व शिफ्ट प्रभार लें' : 'Accept & Take Over Shift') + '</span>';
             acceptBtn.style.opacity = '1';
             acceptBtn.style.cursor = 'pointer';
         }
@@ -1200,8 +1207,8 @@ function setViewMode(mode, silent = false) {
         if (!silent) {
             showToast(
                 isHindi 
-                    ? 'सरल ऑपरेटर दृश्य सक्रिय: शांत, स्पष्ट और विकर्षण-मुक्त 4-चरण कंसोल' 
-                    : 'Simple Operator View Active: Clean, distraction-free 4-step guided console.',
+                    ? 'ऑपरेटर दृश्य सक्रिय: शांत, स्पष्ट और 4-चरण कंसोल' 
+                    : 'Operator View Active: Clean 4-step guided handover console.',
                 'info'
             );
         }
@@ -1213,8 +1220,8 @@ function setViewMode(mode, silent = false) {
         if (!silent) {
             showToast(
                 isHindi 
-                    ? 'विस्तृत इंजीनियरिंग डैशबोर्ड सक्रिय: पूर्ण 5-खंड विश्लेषणात्मक दृश्य' 
-                    : 'Detailed Engineering View Active: Full 5-section diagnostic workspace.',
+                    ? 'इंजीनियरिंग दृश्य सक्रिय: पूर्ण विश्लेषणात्मक डैशबोर्ड' 
+                    : 'Engineering View Active: Full diagnostic and analysis dashboard.',
                 'info'
             );
         }
@@ -2830,6 +2837,7 @@ const FONT_SCALES = [
 ];
 
 function initAccessibilityControls() {
+    const btnTheme = document.getElementById('btnToggleTheme');
     const btnSenior = document.getElementById('btnToggleSeniorMode');
     const btnDecr = document.getElementById('btnFontDecr');
     const btnReset = document.getElementById('btnFontReset');
@@ -2838,6 +2846,9 @@ function initAccessibilityControls() {
     const btnLangHI = document.getElementById('btnLangHI');
 
     // Load saved preferences if available
+    const savedTheme = localStorage.getItem('expertflow_theme') || 'dark';
+    setTheme(savedTheme, true);
+
     const savedSenior = localStorage.getItem('expertflow_seniormode');
     if (savedSenior === 'true') {
         setSeniorOperatorMode(true, true);
@@ -2851,6 +2862,13 @@ function initAccessibilityControls() {
     const savedLang = localStorage.getItem('expertflow_lang') || 'en';
     if (savedLang === 'hi') {
         setLanguage('hi', true);
+    }
+
+    if (btnTheme) {
+        btnTheme.addEventListener('click', () => {
+            const nextTheme = appState.theme === 'normal' ? 'dark' : 'normal';
+            setTheme(nextTheme);
+        });
     }
 
     if (btnSenior) {
@@ -2947,27 +2965,64 @@ function setSeniorOperatorMode(enable, silent = false) {
     if (enable) {
         document.body.classList.add('senior-operator-mode');
         if (btnSenior) btnSenior.classList.add('active');
-        if (labelSenior) labelSenior.innerText = isHindi ? 'सीनियर मोड (सक्रिय)' : 'Senior Mode (Active)';
+        if (labelSenior) labelSenior.innerText = isHindi ? 'कम्फर्ट मोड (सक्रिय)' : 'Comfort Mode (Active)';
         if (!silent) {
             showToast(
                 isHindi 
-                    ? 'सीनियर ऑपरेटर मोड सक्रिय: बड़ा फॉन्ट, उच्च कंट्रास्ट, 48px+ टच-टारगेट (40+ ऑपरेटरों के लिए उपयुक्त)'
-                    : 'Senior Operator Mode (40+) ENGAGED: Enlarged fonts, ultra-high contrast & 48px+ touch targets enabled.', 
+                    ? 'कम्फर्ट मोड सक्रिय: बड़े फॉन्ट और आसान टच-बटन (40+ ऑपरेटरों के लिए सहज)'
+                    : 'Senior Comfort Mode (40+) Active: Larger text and easy-to-tap buttons enabled.', 
                 'info'
             );
         }
     } else {
         document.body.classList.remove('senior-operator-mode');
         if (btnSenior) btnSenior.classList.remove('active');
-        if (labelSenior) labelSenior.innerText = isHindi ? 'सीनियर मोड (40+)' : 'Senior Mode (40+)';
+        if (labelSenior) labelSenior.innerText = isHindi ? 'कम्फर्ट मोड (40+)' : 'Comfort Mode (40+)';
         if (!silent) {
             showToast(
-                isHindi ? 'सामान्य डिस्प्ले मोड पर वापस आ गए।' : 'Reverted to Standard UI Mode.', 
+                isHindi ? 'मानक दृश्य पर वापस आ गए।' : 'Reverted to Standard View.', 
                 'info'
             );
         }
     }
     localStorage.setItem('expertflow_seniormode', String(enable));
+}
+
+function setTheme(theme, silent = false) {
+    appState.theme = theme;
+    const btnTheme = document.getElementById('btnToggleTheme');
+    const iconTheme = document.getElementById('themeIcon');
+    const labelTheme = document.getElementById('labelTheme');
+    const isHindi = appState.language === 'hi';
+
+    if (theme === 'normal') {
+        document.body.classList.add('theme-normal');
+        if (btnTheme) btnTheme.classList.add('active');
+        if (iconTheme) iconTheme.className = 'fas fa-moon';
+        if (labelTheme) labelTheme.innerText = isHindi ? 'शांत डार्क' : 'Calm Dark';
+        if (!silent) {
+            showToast(
+                isHindi 
+                    ? 'सामान्य दिन मोड सक्रिय: स्पष्ट सफेद बैकग्राउंड, आरामदायक कंट्रास्ट'
+                    : 'Normal Daylight Mode Active: Clean white cards with gentle, comfortable contrast.',
+                'info'
+            );
+        }
+    } else {
+        document.body.classList.remove('theme-normal');
+        if (btnTheme) btnTheme.classList.remove('active');
+        if (iconTheme) iconTheme.className = 'fas fa-sun';
+        if (labelTheme) labelTheme.innerText = isHindi ? 'सामान्य मोड' : 'Normal Mode';
+        if (!silent) {
+            showToast(
+                isHindi 
+                    ? 'शांत डार्क मोड सक्रिय: आंखों के अनुकूल स्लेट पैलेट'
+                    : 'Calm Dark Mode Active: Restful slate palette with softened contrast.',
+                'info'
+            );
+        }
+    }
+    localStorage.setItem('expertflow_theme', theme);
 }
 
 function adjustFontScale(delta) {
@@ -3055,6 +3110,13 @@ function applyTranslations(lang) {
     const labelSenior = document.getElementById('labelSeniorMode');
     if (labelSenior) {
         labelSenior.innerText = appState.seniorMode ? t.seniorBtnActive : t.seniorBtnInactive;
+    }
+
+    const labelTheme = document.getElementById('labelTheme');
+    if (labelTheme) {
+        labelTheme.innerText = appState.theme === 'normal'
+            ? (lang === 'hi' ? 'शांत डार्क' : 'Calm Dark')
+            : (lang === 'hi' ? 'सामान्य मोड' : 'Normal Mode');
     }
 
     const demoBtn = document.getElementById('txtBtnDemo');
@@ -3146,9 +3208,9 @@ function applyTranslations(lang) {
     // Simple Operator View Translations
     if (t.viewMode) {
         const lblSimple = document.getElementById('lblViewSimple');
-        if (lblSimple) lblSimple.innerText = lang === 'hi' ? 'सरल मोड (Simple)' : 'Simple View';
+        if (lblSimple) lblSimple.innerText = lang === 'hi' ? 'ऑपरेटर दृश्य' : 'Operator View';
         const lblDetailed = document.getElementById('lblViewDetailed');
-        if (lblDetailed) lblDetailed.innerText = lang === 'hi' ? 'विस्तृत मोड (Detailed)' : 'Detailed View';
+        if (lblDetailed) lblDetailed.innerText = lang === 'hi' ? 'इंजीनियरिंग दृश्य' : 'Engineering View';
 
         const assetTag = document.getElementById('lblSimpleAssetTag');
         if (assetTag) assetTag.innerText = t.viewMode.assetTag;
@@ -3178,7 +3240,7 @@ function applyTranslations(lang) {
 
         const acceptText = document.getElementById('lblSimpleAcceptText');
         if (acceptText && !appState.handoverAcknowledged) {
-            acceptText.innerText = lang === 'hi' ? 'पुष्टि करें व शिफ्ट प्रभार ग्रहण करें' : 'Confirm & Assume Shift Control';
+            acceptText.innerText = lang === 'hi' ? 'स्वीकार करें व शिफ्ट प्रभार लें' : 'Accept & Take Over Shift';
         }
     }
 
